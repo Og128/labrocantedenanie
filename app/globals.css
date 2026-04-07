@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --color-terracotta: #C4623A;
+  --color-cream: #FAF7F2;
+  --color-beige: #E8DDD0;
+  --color-offwhite: #FDFBF8;
+  --color-brown: #6B4F3A;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-offwhite font-inter text-stone-800;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-playfair;
+  }
+
+  ::selection {
+    @apply bg-terracotta-200 text-brown-dark;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-terracotta-500 text-white font-inter font-medium text-sm rounded-sm hover:bg-terracotta-600 active:bg-terracotta-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-terracotta-500 focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-transparent text-terracotta-500 font-inter font-medium text-sm rounded-sm border border-terracotta-500 hover:bg-terracotta-50 active:bg-terracotta-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-terracotta-500 focus:ring-offset-2;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-brown font-inter font-medium text-sm hover:bg-beige rounded-sm transition-colors duration-200;
+  }
+
+  .card-product {
+    @apply bg-offwhite border border-beige rounded-sm overflow-hidden hover:shadow-md transition-shadow duration-300;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-white border border-beige rounded-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-terracotta-400 focus:border-transparent transition duration-200;
+  }
+
+  .label-field {
+    @apply block text-sm font-medium text-brown mb-1.5;
+  }
+
+  .section-title {
+    @apply font-playfair text-3xl md:text-4xl text-brown-dark;
+  }
+
+  .section-subtitle {
+    @apply font-inter text-stone-500 mt-3 leading-relaxed;
+  }
+
+  .badge-sold {
+    @apply absolute top-3 left-3 bg-stone-800 text-white text-xs font-medium px-2.5 py-1 uppercase tracking-wider z-10;
+  }
+
+  .badge-new {
+    @apply absolute top-3 right-3 bg-terracotta-500 text-white text-xs font-medium px-2.5 py-1 uppercase tracking-wider z-10;
+  }
+
+  .admin-card {
+    @apply bg-white rounded-lg border border-stone-200 p-6 shadow-sm;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Tiptap editor styles */
+.tiptap {
+  @apply min-h-[200px] p-4 outline-none;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  @apply text-stone-400;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Cookie consent overrides */
+.CookieConsent {
+  @apply !bg-stone-900 !text-cream;
+}
