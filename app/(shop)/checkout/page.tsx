@@ -5,17 +5,19 @@ import { useCart } from '@/lib/cart'
 import { formatPrice } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { ArrowLeft, Lock } from 'lucide-react'
+import { ArrowLeft, Lock, CreditCard } from 'lucide-react'
 import toast from 'react-hot-toast'
+import PayPalCheckout from '@/components/shop/PayPalCheckout'
 
 const checkoutSchema = z.object({
-  firstName: z.string().min(2, 'Prénom requis'),
+  firstName: z.string().min(2, 'Prenom requis'),
   lastName: z.string().min(2, 'Nom requis'),
   email: z.string().email('Email invalide'),
-  phone: z.string().min(10, 'Téléphone requis'),
+  phone: z.string().min(10, 'Telephone requis'),
   address: z.string().min(5, 'Adresse requise'),
   address2: z.string().optional(),
   city: z.string().min(2, 'Ville requise'),
@@ -26,47 +28,84 @@ const checkoutSchema = z.object({
 type CheckoutForm = z.infer<typeof checkoutSchema>
 
 export default function CheckoutPage() {
-  const { items, total } = useCart()
-  const [loading, setLoading] = useState(false)
+  const { items, total, clearCart } = useCart()
+  const router = useRouter()
+  const [stripeLoading, setStripeLoading] = useState(false)
   const shipping = total() > 150 ? 0 : total() < 30 ? 5.9 : total() < 80 ? 8.9 : 12.9
 
-  const { register, handleSubmit, formState: { errors } } = useForm<CheckoutForm>({
+  const { register, handleSubmit, trigger, getValues, formState: { errors } } = useForm<CheckoutForm>({
     resolver: zodResolver(checkoutSchema),
     defaultValues: { country: 'France' },
   })
 
-  const onSubmit = async (data: CheckoutForm) => {
-    if (items.length === 0) return
-    setLoading(true)
+  const buildPayload = (data: CheckoutForm) => ({
+    items,
+    shippingAddress: {
+      line1: data.address,
+      line2: data.address2 || '',
+      city: data.city,
+      postalCode: data.postalCode,
+      country: data.country,
+    },
+    customerName: `${data.firstName} ${data.lastName}`,
+    customerEmail: data.email,
+    customerPhone: data.phone,
+  })
 
+  const onStripeSubmit = async (data: CheckoutForm) => {
+    if (items.length === 0) return
+    setStripeLoading(true)
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          items,
-          shippingAddress: {
-            line1: data.address,
-            line2: data.address2 || '',
-            city: data.city,
-            postalCode: data.postalCode,
-            country: data.country,
-          },
-          customerName: `${data.firstName} ${data.lastName}`,
-          customerEmail: data.email,
-          customerPhone: data.phone,
-        }),
+        body: JSON.stringify(buildPayload(data)),
       })
-
-      const { url } = await res.json()
-      if (url) {
-        window.location.href = url
+      const json = await res.json()
+      if (json.url) {
+        window.location.href = json.url
       } else {
-        throw new Error('No checkout URL received')
+        throw new Error()
       }
-    } catch (err) {
-      toast.error('Une erreur est survenue. Veuillez réessayer.')
-      setLoading(false)
+    } catch {
+      toast.error('Une erreur est survenue. Veuillez ressayer.')
+      setStripeLoading(false)
+    }
+  }
+
+  const handlePayPalCreateOrder = async () => {
+    const valid = await trigger()
+    if (!valid) {
+      toast.error('Veuillez remplir tous les champs requis.')
+      return null
+    }
+    const res = await fetch('/api/paypal/create-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items }),
+    })
+    const data = await res.json()
+    if (!data.id) throw new Error('Impossible de creer la commande PayPal')
+    return data.id as string
+  }
+
+  const handlePayPalApprove = async (data: { orderID: string }) => {
+    const formData = getValues()
+    try {
+      const res = await fetch('/api/paypal/capture-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderID: data.orderID, ...buildPayload(formData) }),
+      })
+      const result = await res.json()
+      if (result.success) {
+        clearCart()
+        router.push('/confirmation?paypal=1&order_id=' + result.orderId)
+      } else {
+        toast.error(result.error || 'Le paiement a echoue.')
+      }
+    } catch {
+      toast.error('Une erreur est survenue avec PayPal.')
     }
   }
 
@@ -74,7 +113,7 @@ export default function CheckoutPage() {
     return (
       <div className="min-h-screen bg-cream flex flex-col items-center justify-center px-4">
         <p className="text-stone-500 font-inter mb-4">Votre panier est vide.</p>
-        <Link href="/boutique" className="btn-primary">Retour à la boutique</Link>
+        <Link href="/boutique" className="btn-primary">Retour a la boutique</Link>
       </div>
     )
   }
@@ -82,22 +121,22 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen bg-cream">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-
-        <Link href="/panier" className="inline-flex items-center gap-2 text-sm text-stone-400 hover:text-terracotta-500 transition-colors font-inter mb-6">
+        <Link
+          href="/panier"
+          className="inline-flex items-center gap-2 text-sm text-stone-400 hover:text-terracotta-500 transition-colors font-inter mb-6"
+        >
           <ArrowLeft size={14} /> Retour au panier
         </Link>
 
         <h1 className="section-title mb-8">Finaliser la commande</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-          {/* Form */}
-          <form onSubmit={handleSubmit(onSubmit)} className="lg:col-span-3 space-y-5">
+          <div className="lg:col-span-3 space-y-5">
             <div className="bg-white border border-beige rounded-sm p-6">
               <h2 className="font-playfair text-lg text-brown-dark mb-4">Vos informations</h2>
-
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="label-field">Prénom</label>
+                  <label className="label-field">Prenom</label>
                   <input {...register('firstName')} className="input-field" placeholder="Marie" />
                   {errors.firstName && <p className="text-red-500 text-xs mt-1 font-inter">{errors.firstName.message}</p>}
                 </div>
@@ -107,15 +146,13 @@ export default function CheckoutPage() {
                   {errors.lastName && <p className="text-red-500 text-xs mt-1 font-inter">{errors.lastName.message}</p>}
                 </div>
               </div>
-
               <div className="mt-4">
                 <label className="label-field">Email</label>
                 <input {...register('email')} type="email" className="input-field" placeholder="marie@example.fr" />
                 {errors.email && <p className="text-red-500 text-xs mt-1 font-inter">{errors.email.message}</p>}
               </div>
-
               <div className="mt-4">
-                <label className="label-field">Téléphone</label>
+                <label className="label-field">Telephone</label>
                 <input {...register('phone')} type="tel" className="input-field" placeholder="06 XX XX XX XX" />
                 {errors.phone && <p className="text-red-500 text-xs mt-1 font-inter">{errors.phone.message}</p>}
               </div>
@@ -123,18 +160,15 @@ export default function CheckoutPage() {
 
             <div className="bg-white border border-beige rounded-sm p-6">
               <h2 className="font-playfair text-lg text-brown-dark mb-4">Adresse de livraison</h2>
-
               <div>
                 <label className="label-field">Adresse</label>
                 <input {...register('address')} className="input-field" placeholder="12 rue des Fleurs" />
                 {errors.address && <p className="text-red-500 text-xs mt-1 font-inter">{errors.address.message}</p>}
               </div>
-
               <div className="mt-4">
-                <label className="label-field">Complément d'adresse (optionnel)</label>
-                <input {...register('address2')} className="input-field" placeholder="Appartement, bâtiment..." />
+                <label className="label-field">Complement (optionnel)</label>
+                <input {...register('address2')} className="input-field" placeholder="Appartement, batiment..." />
               </div>
-
               <div className="grid grid-cols-2 gap-4 mt-4">
                 <div>
                   <label className="label-field">Code postal</label>
@@ -147,7 +181,6 @@ export default function CheckoutPage() {
                   {errors.city && <p className="text-red-500 text-xs mt-1 font-inter">{errors.city.message}</p>}
                 </div>
               </div>
-
               <div className="mt-4">
                 <label className="label-field">Pays</label>
                 <select {...register('country')} className="input-field">
@@ -159,30 +192,50 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="btn-primary w-full py-4 text-base gap-3"
-            >
-              {loading ? (
-                <>
-                  <span className="animate-spin h-4 w-4 border-2 border-white/30 border-t-white rounded-full" />
-                  Redirection vers le paiement...
-                </>
-              ) : (
-                <>
-                  <Lock size={16} />
-                  Procéder au paiement sécurisé
-                </>
-              )}
-            </button>
-          </form>
+            <div className="bg-white border border-beige rounded-sm p-6">
+              <h2 className="font-playfair text-lg text-brown-dark mb-5">Mode de paiement</h2>
 
-          {/* Order summary */}
+              <form onSubmit={handleSubmit(onStripeSubmit)}>
+                <button
+                  type="submit"
+                  disabled={stripeLoading}
+                  className="btn-primary w-full py-4 text-base gap-3 mb-4"
+                >
+                  {stripeLoading ? (
+                    <>
+                      <span className="animate-spin h-4 w-4 border-2 border-white/30 border-t-white rounded-full" />
+                      Redirection...
+                    </>
+                  ) : (
+                    <>
+                      <Lock size={16} />
+                      <CreditCard size={16} />
+                      Payer par carte bancaire
+                    </>
+                  )}
+                </button>
+              </form>
+
+              <div className="relative my-4">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-beige" />
+                </div>
+                <div className="relative flex justify-center">
+                  <span className="bg-white px-3 text-sm text-stone-400 font-inter">ou</span>
+                </div>
+              </div>
+
+              <PayPalCheckout
+                onCreateOrder={handlePayPalCreateOrder}
+                onApprove={handlePayPalApprove}
+                onError={() => toast.error('Une erreur est survenue avec PayPal.')}
+              />
+            </div>
+          </div>
+
           <div className="lg:col-span-2">
             <div className="bg-white border border-beige rounded-sm p-5 sticky top-28">
               <h2 className="font-playfair text-lg text-brown-dark mb-4">Votre commande</h2>
-
               <div className="space-y-3 mb-4">
                 {items.map((item) => (
                   <div key={item.id} className="flex gap-3 items-start">
@@ -196,7 +249,6 @@ export default function CheckoutPage() {
                   </div>
                 ))}
               </div>
-
               <div className="border-t border-beige pt-4 space-y-2 text-sm font-inter">
                 <div className="flex justify-between text-stone-500">
                   <span>Sous-total</span>

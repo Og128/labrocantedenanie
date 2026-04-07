@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import Link from 'next/link'
 import { CheckCircle, Package, ArrowRight } from 'lucide-react'
 import type { Metadata } from 'next'
@@ -10,9 +12,11 @@ export const metadata: Metadata = {
 export default async function ConfirmationPage({
   searchParams,
 }: {
-  searchParams: Promise<{ session_id?: string }>
+  searchParams: Promise<{ session_id?: string; paypal?: string; order_id?: string }>
 }) {
-  const { session_id } = await searchParams
+  const { session_id, paypal, order_id } = await searchParams
+  const reference = paypal ? order_id : session_id
+  const isPayPal = !!paypal
 
   return (
     <div className="min-h-screen bg-cream flex items-center justify-center px-4">
@@ -26,17 +30,20 @@ export default async function ConfirmationPage({
         </h1>
 
         <p className="text-stone-500 font-inter leading-relaxed mb-6">
-          Merci pour votre achat ! Vous allez recevoir un email de confirmation dans quelques minutes.
+          Merci pour votre achat
+          {isPayPal ? ' via PayPal' : ''} ! Vous allez recevoir un email de confirmation dans quelques minutes.
           Nous préparerons votre commande avec le plus grand soin.
         </p>
 
-        {session_id && (
+        {reference && (
           <div className="bg-white border border-beige rounded-sm p-4 mb-6 text-left">
             <div className="flex items-center gap-3">
               <Package size={18} className="text-terracotta-500 shrink-0" />
               <div>
                 <p className="text-sm font-inter font-medium text-stone-700">Référence de commande</p>
-                <p className="text-xs text-stone-400 font-mono mt-0.5">{session_id.slice(-12).toUpperCase()}</p>
+                <p className="text-xs text-stone-400 font-mono mt-0.5">
+                  {reference.slice(-12).toUpperCase()}
+                </p>
               </div>
             </div>
           </div>

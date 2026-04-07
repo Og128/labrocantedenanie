@@ -77,7 +77,7 @@ export default function HeroSlider() {
       <div className="relative z-10 h-full flex items-center justify-center text-center px-4 mt-[104px]">
         <div>
           <p className="text-terracotta-300 text-sm font-inter uppercase tracking-[0.3em] mb-4">
-            La Brocante du Sud
+            La Brocante de Nanie
           </p>
           <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-medium mb-4 leading-tight">
             {slides[current].title}

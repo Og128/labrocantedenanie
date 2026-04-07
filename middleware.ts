@@ -9,7 +9,9 @@ export default withAuth(
       req.nextUrl.pathname.startsWith('/api/orders') ||
       req.nextUrl.pathname.startsWith('/api/upload')
 
-    if ((isAdminPath || isApiAdminPath) && token?.role !== 'ADMIN') {
+    const isLoginPage = req.nextUrl.pathname === '/admin/login'
+
+    if (!isLoginPage && (isAdminPath || isApiAdminPath) && token?.role !== 'ADMIN') {
       if (isApiAdminPath) {
         return NextResponse.json({ error: 'Non autorisé' }, { status: 401 })
       }

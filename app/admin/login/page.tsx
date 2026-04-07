@@ -44,7 +44,7 @@ export default function AdminLoginPage() {
           <div className="w-12 h-12 bg-terracotta-500 rounded-full flex items-center justify-center mx-auto mb-4">
             <Lock size={20} className="text-white" />
           </div>
-          <h1 className="font-playfair text-2xl text-white">La Brocante du Sud</h1>
+          <h1 className="font-playfair text-2xl text-white">La Brocante de Nanie</h1>
           <p className="text-stone-400 text-sm font-inter mt-1">Administration</p>
         </div>
 

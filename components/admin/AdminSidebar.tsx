@@ -29,7 +29,7 @@ export default function AdminSidebar() {
     <aside className="fixed inset-y-0 left-0 w-64 bg-stone-900 text-white z-40 hidden lg:flex flex-col">
       {/* Brand */}
       <div className="p-6 border-b border-stone-700">
-        <h1 className="font-playfair text-lg text-white">La Brocante du Sud</h1>
+        <h1 className="font-playfair text-lg text-white">La Brocante de Nanie</h1>
         <p className="text-stone-400 text-xs font-inter mt-0.5">Administration</p>
       </div>
 
