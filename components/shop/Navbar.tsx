@@ -12,7 +12,6 @@ const navLinks = [
   { href: '/boutique?category=MEUBLES', label: 'Meubles' },
   { href: '/boutique?category=DECORATION', label: 'Décoration' },
   { href: '/boutique?category=VAISSELLE', label: 'Vaisselle' },
-  { href: '/blog', label: 'Blog' },
   { href: '/a-propos', label: 'À propos' },
   { href: '/contact', label: 'Contact' },
 ]
@@ -46,7 +45,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex flex-col leading-tight">
             <span className="font-playfair text-xl font-semibold text-brown-dark">
-              La Brocante du Sud
+              La Brocante de Nanie
             </span>
             <span className="text-xs text-stone-400 font-inter hidden sm:block">
               Objets anciens & curiosités

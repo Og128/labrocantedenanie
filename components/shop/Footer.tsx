@@ -9,7 +9,7 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="lg:col-span-1">
-            <h3 className="font-playfair text-xl text-white mb-3">La Brocante du Sud</h3>
+            <h3 className="font-playfair text-xl text-white mb-3">La Brocante de Nanie</h3>
             <p className="text-cream/70 text-sm font-inter leading-relaxed mb-5">
               Des trésors du passé pour embellir votre aujourd'hui.
               Sélection artisanale d'objets anciens depuis le Sud de la France.
@@ -35,6 +35,8 @@ export default function Footer() {
                 { href: '/boutique?category=DECORATION', label: 'Décoration' },
                 { href: '/boutique?category=LUMINAIRES', label: 'Luminaires' },
                 { href: '/boutique?category=BIJOUX', label: 'Bijoux' },
+                { href: '/boutique?category=LIVRES', label: 'Livres' },
+                { href: '/boutique?category=MERCERIE', label: 'Mercerie' },
               ].map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-cream/70 hover:text-cream text-sm font-inter transition-colors">
@@ -51,7 +53,6 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {[
                 { href: '/a-propos', label: 'Notre histoire' },
-                { href: '/blog', label: 'Blog' },
                 { href: '/livraison', label: 'Livraison & Retours' },
                 { href: '/cgv', label: 'Conditions générales' },
                 { href: '/mentions-legales', label: 'Mentions légales' },
@@ -93,7 +94,7 @@ export default function Footer() {
 
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-3">
           <p className="text-cream/40 text-xs font-inter">
-            © {new Date().getFullYear()} La Brocante du Sud. Tous droits réservés.
+            © {new Date().getFullYear()} La Brocante de Nanie. Tous droits réservés.
           </p>
           <div className="flex items-center gap-2">
             <img src="/images/stripe-badge.svg" alt="Paiement sécurisé Stripe" className="h-6 opacity-50" />

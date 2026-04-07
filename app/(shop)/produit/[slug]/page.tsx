@@ -178,13 +178,32 @@ export default async function ProductPage({ params }: Props) {
               </div>
             )}
 
-            {/* Add to cart */}
+            {/* Add to cart or contact */}
             <div className="mt-auto pt-4 border-t border-beige">
-              <AddToCartButton product={product} />
+              {(product as any).contactOnly && !isSold ? (
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3 p-3 bg-amber-50 border border-amber-200 rounded-sm">
+                    <span className="text-amber-600 text-lg shrink-0">ℹ</span>
+                    <p className="text-sm font-inter text-amber-800">
+                      Cet article n'est pas disponible à l'achat en ligne. Contactez-nous pour l'acquérir.
+                    </p>
+                  </div>
+                  <Link
+                    href={`/contact?sujet=Demande d'achat : ${encodeURIComponent(product.title)}`}
+                    className="btn-primary w-full py-4 text-base gap-3 flex items-center justify-center"
+                  >
+                    Contacter pour cet article
+                  </Link>
+                </div>
+              ) : (
+                <AddToCartButton product={product} />
+              )}
 
-              <p className="text-xs text-stone-400 font-inter mt-3 text-center">
-                🔒 Paiement sécurisé · Livraison soignée · Retour sous 14 jours
-              </p>
+              {!(product as any).contactOnly && (
+                <p className="text-xs text-stone-400 font-inter mt-3 text-center">
+                  Paiement sécurisé · Livraison soignée · Retour sous 14 jours
+                </p>
+              )}
             </div>
           </div>
         </div>

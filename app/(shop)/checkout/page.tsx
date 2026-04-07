@@ -33,10 +33,15 @@ export default function CheckoutPage() {
   const [stripeLoading, setStripeLoading] = useState(false)
   const shipping = total() > 150 ? 0 : total() < 30 ? 5.9 : total() < 80 ? 8.9 : 12.9
 
-  const { register, handleSubmit, trigger, getValues, formState: { errors } } = useForm<CheckoutForm>({
+  const { register, handleSubmit, trigger, getValues, watch, formState: { errors } } = useForm<CheckoutForm>({
     resolver: zodResolver(checkoutSchema),
     defaultValues: { country: 'France' },
   })
+
+  const watchedCountry = watch('country', 'France')
+  const watchedPostalCode = watch('postalCode', '')
+  const outsideMetropole = watchedCountry !== 'France' ||
+    watchedPostalCode.startsWith('97') || watchedPostalCode.startsWith('98')
 
   const buildPayload = (data: CheckoutForm) => ({
     items,
@@ -184,52 +189,82 @@ export default function CheckoutPage() {
               <div className="mt-4">
                 <label className="label-field">Pays</label>
                 <select {...register('country')} className="input-field">
-                  <option value="France">France</option>
+                  <option value="France">France (metropolitaine)</option>
                   <option value="Belgique">Belgique</option>
                   <option value="Suisse">Suisse</option>
                   <option value="Luxembourg">Luxembourg</option>
+                  <option value="Autre">Autre pays</option>
                 </select>
+                {outsideMetropole && (
+                  <p className="text-amber-600 text-xs mt-1 font-inter">Livraison disponible uniquement en France metropolitaine.</p>
+                )}
               </div>
             </div>
 
             <div className="bg-white border border-beige rounded-sm p-6">
               <h2 className="font-playfair text-lg text-brown-dark mb-5">Mode de paiement</h2>
 
-              <form onSubmit={handleSubmit(onStripeSubmit)}>
-                <button
-                  type="submit"
-                  disabled={stripeLoading}
-                  className="btn-primary w-full py-4 text-base gap-3 mb-4"
-                >
-                  {stripeLoading ? (
-                    <>
-                      <span className="animate-spin h-4 w-4 border-2 border-white/30 border-t-white rounded-full" />
-                      Redirection...
-                    </>
-                  ) : (
-                    <>
-                      <Lock size={16} />
-                      <CreditCard size={16} />
-                      Payer par carte bancaire
-                    </>
-                  )}
-                </button>
-              </form>
-
-              <div className="relative my-4">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-beige" />
+              {outsideMetropole ? (
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3 p-4 bg-amber-50 border border-amber-200 rounded-sm">
+                    <span className="text-amber-600 text-xl shrink-0">⚠</span>
+                    <div>
+                      <p className="text-sm font-inter font-medium text-amber-800 mb-1">
+                        Livraison uniquement en France metropolitaine
+                      </p>
+                      <p className="text-xs font-inter text-amber-700">
+                        Nous ne livrons pas hors France metropolitaine. Contactez-nous pour connaitre les options disponibles pour votre adresse.
+                      </p>
+                    </div>
+                  </div>
+                  <a
+                    href={'/contact?sujet=Demande de livraison hors metropole&message=' + encodeURIComponent(
+                      'Bonjour, je souhaite commander les articles suivants : ' + items.map(i => i.title).join(', ')
+                    )}
+                    className="btn-secondary w-full py-4 text-base flex items-center justify-center gap-2"
+                  >
+                    Nous contacter pour ma commande
+                  </a>
                 </div>
-                <div className="relative flex justify-center">
-                  <span className="bg-white px-3 text-sm text-stone-400 font-inter">ou</span>
-                </div>
-              </div>
+              ) : (
+                <>
+                  <form onSubmit={handleSubmit(onStripeSubmit)}>
+                    <button
+                      type="submit"
+                      disabled={stripeLoading}
+                      className="btn-primary w-full py-4 text-base gap-3 mb-4"
+                    >
+                      {stripeLoading ? (
+                        <>
+                          <span className="animate-spin h-4 w-4 border-2 border-white/30 border-t-white rounded-full" />
+                          Redirection...
+                        </>
+                      ) : (
+                        <>
+                          <Lock size={16} />
+                          <CreditCard size={16} />
+                          Payer par carte bancaire
+                        </>
+                      )}
+                    </button>
+                  </form>
 
-              <PayPalCheckout
-                onCreateOrder={handlePayPalCreateOrder}
-                onApprove={handlePayPalApprove}
-                onError={() => toast.error('Une erreur est survenue avec PayPal.')}
-              />
+                  <div className="relative my-4">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-beige" />
+                    </div>
+                    <div className="relative flex justify-center">
+                      <span className="bg-white px-3 text-sm text-stone-400 font-inter">ou</span>
+                    </div>
+                  </div>
+
+                  <PayPalCheckout
+                    onCreateOrder={handlePayPalCreateOrder}
+                    onApprove={handlePayPalApprove}
+                    onError={() => toast.error('Une erreur est survenue avec PayPal.')}
+                  />
+                </>
+              )}
             </div>
           </div>
 

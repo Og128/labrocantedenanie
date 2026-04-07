@@ -6,7 +6,6 @@ import {
   LayoutDashboard,
   Package,
   ShoppingCart,
-  FileText,
   Settings,
   ExternalLink,
   PlusCircle,
@@ -18,7 +17,6 @@ const navItems = [
   { href: '/admin/produits', icon: Package, label: 'Articles' },
   { href: '/admin/produits/nouveau', icon: PlusCircle, label: 'Nouvel article' },
   { href: '/admin/commandes', icon: ShoppingCart, label: 'Commandes' },
-  { href: '/admin/blog', icon: FileText, label: 'Blog' },
   { href: '/admin/contenu', icon: Settings, label: 'Contenu du site' },
 ]
 

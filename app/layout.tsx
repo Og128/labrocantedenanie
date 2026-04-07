@@ -6,11 +6,11 @@ import Providers from '@/components/ui/Providers'
 
 export const metadata: Metadata = {
   title: {
-    default: 'La Brocante du Sud — Des trésors du passé pour embellir votre aujourd\'hui',
-    template: '%s | La Brocante du Sud',
+    default: 'La Brocante de Nanie — Des trésors du passé pour embellir votre aujourd\'hui',
+    template: '%s | La Brocante de Nanie',
   },
   description:
-    'Découvrez notre sélection d\'objets anciens, meubles, vaisselle et curiosités authentiques. La Brocante du Sud vous propose des pièces uniques chargées d\'histoire.',
+    'Découvrez notre sélection d\'objets anciens, meubles, vaisselle et curiosités authentiques. La Brocante de Nanie vous propose des pièces uniques chargées d\'histoire.',
   keywords: [
     'brocante',
     'antiquités',
@@ -20,14 +20,14 @@ export const metadata: Metadata = {
     'seconde main',
     'vintage',
   ],
-  authors: [{ name: 'La Brocante du Sud' }],
-  creator: 'La Brocante du Sud',
+  authors: [{ name: 'La Brocante de Nanie' }],
+  creator: 'La Brocante de Nanie',
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
     url: process.env.NEXT_PUBLIC_SITE_URL,
-    siteName: 'La Brocante du Sud',
-    title: 'La Brocante du Sud',
+    siteName: 'La Brocante de Nanie',
+    title: 'La Brocante de Nanie',
     description:
       'Des objets anciens, meubles et curiosités authentiques directement depuis le Sud de la France.',
     images: [
@@ -35,13 +35,13 @@ export const metadata: Metadata = {
         url: `${process.env.NEXT_PUBLIC_SITE_URL}/images/og-default.jpg`,
         width: 1200,
         height: 630,
-        alt: 'La Brocante du Sud',
+        alt: 'La Brocante de Nanie',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'La Brocante du Sud',
+    title: 'La Brocante de Nanie',
     description: 'Des trésors du passé pour embellir votre aujourd\'hui',
   },
   robots: {

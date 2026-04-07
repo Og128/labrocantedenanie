@@ -37,6 +37,8 @@ export const CATEGORY_LABELS: Record<string, string> = {
   TEXTILES: 'Textiles',
   OBJETS_METIER: 'Objets de métier',
   TABLEAUX: 'Tableaux & Cadres',
+  LIVRES: 'Livres',
+  MERCERIE: 'Mercerie',
   NOUVEAUTES: 'Nouveautés',
 }
 

@@ -18,6 +18,7 @@ const productSchema = z.object({
   category: z.string().min(1, 'Catégorie requise'),
   condition: z.string().min(1, 'État requis'),
   featured: z.boolean(),
+  contactOnly: z.boolean(),
   weight: z.number().optional().nullable(),
   dimensions: z.string().optional(),
   tags: z.string().optional(),
@@ -46,6 +47,7 @@ export default function ProductForm({ product }: Props) {
       category: product.category,
       condition: product.condition,
       featured: product.featured,
+      contactOnly: (product as any).contactOnly ?? false,
       weight: product.weight || undefined,
       dimensions: product.dimensions || undefined,
       tags: product.tags.join(', '),
@@ -53,6 +55,7 @@ export default function ProductForm({ product }: Props) {
     } : {
       sortOrder: 0,
       featured: false,
+      contactOnly: false,
     },
   })
 
@@ -312,6 +315,18 @@ export default function ProductForm({ product }: Props) {
                 <div>
                   <span className="text-sm font-inter font-medium text-stone-700">Coup de cœur</span>
                   <p className="text-xs text-stone-400">Mis en avant sur la page d'accueil</p>
+                </div>
+              </label>
+
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input
+                  {...register('contactOnly')}
+                  type="checkbox"
+                  className="w-4 h-4 text-terracotta-500 border-stone-300 rounded"
+                />
+                <div>
+                  <span className="text-sm font-inter font-medium text-stone-700">Contact uniquement</span>
+                  <p className="text-xs text-stone-400">Impossible d'acheter en ligne — le client doit contacter la boutique</p>
                 </div>
               </label>
             </div>
