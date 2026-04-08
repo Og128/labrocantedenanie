@@ -37,7 +37,7 @@ export async function sendOrderConfirmationEmail(data: OrderEmailData) {
   await resend.emails.send({
     from: process.env.EMAIL_FROM!,
     to: customerEmail,
-    subject: `Confirmation de commande #${orderId.slice(-8).toUpperCase()} - La Brocante du Sud`,
+    subject: `Confirmation de commande #${orderId.slice(-8).toUpperCase()} - La Brocante de Nanie`,
     html: `
 <!DOCTYPE html>
 <html lang="fr">
@@ -50,7 +50,7 @@ export async function sendOrderConfirmationEmail(data: OrderEmailData) {
 
     <!-- Header -->
     <div style="background-color: #C4623A; padding: 30px; text-align: center;">
-      <h1 style="color: #fdfbf8; margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: 24px;">La Brocante du Sud</h1>
+      <h1 style="color: #fdfbf8; margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: 24px;">La Brocante de Nanie</h1>
       <p style="color: #fae4d9; margin: 5px 0 0; font-size: 14px;">Des trésors du passé pour embellir votre aujourd'hui</p>
     </div>
 
@@ -96,7 +96,7 @@ export async function sendOrderConfirmationEmail(data: OrderEmailData) {
 
     <!-- Footer -->
     <div style="background: #e8ddd0; padding: 20px; text-align: center;">
-      <p style="color: #6B4F3A; margin: 0; font-size: 13px;">La Brocante du Sud — Merci de votre confiance !</p>
+      <p style="color: #6B4F3A; margin: 0; font-size: 13px;">La Brocante de Nanie — Merci de votre confiance !</p>
     </div>
   </div>
 </body>
@@ -129,7 +129,7 @@ export async function sendShippingEmail(data: {
       <p style="color: #C4623A; font-size: 22px; font-weight: bold; margin: 0;">${trackingNumber}</p>
     </div>
     <p style="color: #888; font-size: 13px;">Pour toute question : <a href="mailto:${process.env.EMAIL_CONTACT}" style="color: #C4623A;">${process.env.EMAIL_CONTACT}</a></p>
-    <p style="color: #6B4F3A;">— L'équipe de La Brocante du Sud</p>
+    <p style="color: #6B4F3A;">— L'équipe de La Brocante de Nanie</p>
   </div>
 </body>
 </html>`,

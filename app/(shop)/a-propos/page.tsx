@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'À propos',
-  description: 'L\'histoire de La Brocante du Sud, notre passion pour les objets anciens et notre engagement pour un commerce responsable.',
+  description: 'L\'histoire de La Brocante de Nanie, notre passion pour les objets anciens et notre engagement pour un commerce responsable.',
 }
 
 export default function AProposPage() {

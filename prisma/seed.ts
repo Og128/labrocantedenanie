@@ -11,7 +11,6 @@ async function main() {
   await prisma.order.deleteMany()
   await prisma.review.deleteMany()
   await prisma.product.deleteMany()
-  await prisma.blogPost.deleteMany()
   await prisma.shippingRule.deleteMany()
   await prisma.siteContent.deleteMany()
   await prisma.user.deleteMany()
@@ -24,7 +23,7 @@ async function main() {
   await prisma.user.create({
     data: {
       name: 'Admin',
-      email: process.env.ADMIN_EMAIL || 'admin@labrocantedusud.fr',
+      email: process.env.ADMIN_EMAIL || 'admin@labrocantedenanie.fr',
       password: hashedPassword,
       role: 'ADMIN',
       emailVerified: new Date(),
@@ -59,7 +58,7 @@ async function main() {
       },
       {
         key: 'about_text',
-        value: `Passionnée par les objets d'antan depuis toujours, j'ai ouvert La Brocante du Sud pour partager ma passion avec le plus grand nombre. Nichée au cœur du Sud de la France, notre brocante propose une sélection minutieuse d'objets authentiques, de meubles anciens et de curiosités dénichées dans les brocantes, ventes aux enchères et greniers de particuliers.
+        value: `Passionnée par les objets d'antan depuis toujours, j'ai ouvert La Brocante de Nanie pour partager ma passion avec le plus grand nombre. Nichée au cœur du Sud de la France, notre brocante propose une sélection minutieuse d'objets authentiques, de meubles anciens et de curiosités dénichées dans les brocantes, ventes aux enchères et greniers de particuliers.
 
 Chaque pièce est soigneusement choisie pour sa qualité, son histoire et son âme. Nous croyons que donner une seconde vie aux objets est non seulement beau, mais aussi essentiel pour un mode de consommation plus responsable.
 
@@ -83,7 +82,7 @@ Bienvenue dans notre univers chaleureux, où le passé rencontre le présent.`,
       },
       {
         key: 'contact_email',
-        value: 'contact@labrocantedusud.fr',
+        value: 'contact@labrocantedenanie.fr',
         type: 'text',
       },
       {
@@ -253,41 +252,11 @@ Bienvenue dans notre univers chaleureux, où le passé rencontre le présent.`,
   }
   console.log(`✅ ${products.length} produits créés`)
 
-  // Articles de blog
-  await prisma.blogPost.createMany({
-    data: [
-      {
-        title: 'Comment reconnaître un meuble ancien authentique ?',
-        slug: 'reconnaitre-meuble-ancien-authentique',
-        excerpt: 'Quelques conseils pratiques pour ne pas vous faire avoir lors de vos achats en brocante ou vente aux enchères.',
-        content: `<h2>Les signes qui ne trompent pas</h2>
-<p>Reconnaître un vrai meuble ancien n'est pas toujours évident. Voici nos conseils d'experte pour distinguer les pièces authentiques des reproductions...</p>
-<h3>Examinez le bois</h3>
-<p>Un meuble ancien porte les marques du temps : irrégularités du bois, légères craquelures du vernis, traces d'usure naturelle aux endroits de contact (poignées, pieds, arêtes)...</p>`,
-        published: true,
-        publishedAt: new Date('2024-03-15'),
-        coverImage: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800',
-      },
-      {
-        title: 'La porcelaine de Limoges : histoire et identification',
-        slug: 'porcelaine-limoges-histoire-identification',
-        excerpt: 'Plongez dans l\'histoire fascinante de la porcelaine de Limoges et apprenez à identifier les pièces authentiques.',
-        content: `<h2>Deux siècles d'excellence</h2>
-<p>La manufacture de Limoges est l'une des plus prestigieuses au monde. Depuis 1771, ses artisans perpétuent un savoir-faire unique...</p>`,
-        published: true,
-        publishedAt: new Date('2024-04-02'),
-        coverImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
-      },
-    ],
-  })
-  console.log('✅ Articles de blog créés')
-
   console.log('\n🎉 Seeding terminé avec succès !')
   console.log('\n📋 Récapitulatif :')
   console.log('   - 1 compte admin')
   console.log('   - 5 règles de livraison')
   console.log('   - 8 produits de démonstration')
-  console.log('   - 2 articles de blog')
   console.log('   - Contenu du site configuré')
 }
 

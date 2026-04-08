@@ -17,11 +17,11 @@ export default function MentionsLegalesPage() {
 
           <h2>Éditeur du site</h2>
           <p>
-            <strong>La Brocante du Sud</strong><br />
+            <strong>La Brocante de Nanie</strong><br />
             Entreprise individuelle<br />
             12 Rue de la République, 13100 Aix-en-Provence<br />
             Téléphone : +33 (0)4 42 XX XX XX<br />
-            Email : contact@labrocantedusud.fr<br />
+            Email : contact@labrocantedenanie.fr<br />
             SIRET : XXX XXX XXX XXXXX<br />
             N° TVA intracommunautaire : FRXX XXX XXX XXX
           </p>
@@ -41,7 +41,7 @@ export default function MentionsLegalesPage() {
           <p>L'ensemble du contenu de ce site (textes, images, graphismes, logo) est protégé par le droit d'auteur. Toute reproduction, même partielle, est soumise à autorisation préalable.</p>
 
           <h2>Liens hypertextes</h2>
-          <p>La Brocante du Sud décline toute responsabilité quant au contenu des sites vers lesquels des liens hypertextes pourraient être établis.</p>
+          <p>La Brocante de Nanie décline toute responsabilité quant au contenu des sites vers lesquels des liens hypertextes pourraient être établis.</p>
 
           <h2>Cookies</h2>
           <p>Ce site utilise des cookies techniques nécessaires à son bon fonctionnement et des cookies analytiques pour mesurer l'audience. Voir notre <a href="/confidentialite" className="text-terracotta-500">politique de confidentialité</a>.</p>

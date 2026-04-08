@@ -18,7 +18,7 @@ export default function CgvPage() {
         <div className="prose prose-stone max-w-none font-inter prose-headings:font-playfair prose-h2:text-brown-dark prose-h3:text-stone-700 prose-a:text-terracotta-500">
 
           <h2>Article 1 – Objet</h2>
-          <p>Les présentes Conditions Générales de Vente (CGV) s'appliquent à toutes les ventes conclues sur le site internet <strong>labrocantedusud.fr</strong>, exploité par La Brocante du Sud, entreprise individuelle dont le siège social est situé à Aix-en-Provence (13100).</p>
+          <p>Les présentes Conditions Générales de Vente (CGV) s'appliquent à toutes les ventes conclues sur le site internet <strong>labrocantedenanie.fr</strong>, exploité par La Brocante de Nanie, entreprise individuelle dont le siège social est situé à Aix-en-Provence (13100).</p>
 
           <h2>Article 2 – Produits</h2>
           <p>Les articles proposés à la vente sont des objets de brocante et d'antiquité, à usage unique. Chaque article est décrit avec soin, les photographies étant aussi fidèles que possible à la réalité. Les légères différences de couleur dues à la calibration des écrans ne peuvent engager notre responsabilité.</p>
@@ -46,7 +46,7 @@ export default function CgvPage() {
           <p>Les conditions de livraison sont détaillées sur la page <a href="/livraison">Livraison & Retours</a>. En cas de colis endommagé à la réception, vous devez émettre des réserves auprès du transporteur et nous contacter dans les 48h.</p>
 
           <h2>Article 8 – Responsabilité</h2>
-          <p>La Brocante du Sud ne saurait être tenue responsable des dommages indirects pouvant survenir du fait de l'achat des produits. Notre responsabilité est limitée à la valeur de la commande.</p>
+          <p>La Brocante de Nanie ne saurait être tenue responsable des dommages indirects pouvant survenir du fait de l'achat des produits. Notre responsabilité est limitée à la valeur de la commande.</p>
 
           <h2>Article 9 – Litiges</h2>
           <p>En cas de litige, une solution amiable sera recherchée avant tout recours judiciaire. À défaut, les tribunaux compétents seront ceux du ressort d'Aix-en-Provence.</p>

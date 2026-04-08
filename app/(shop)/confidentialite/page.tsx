@@ -17,7 +17,7 @@ export default function ConfidentialitePage() {
         <div className="prose prose-stone max-w-none font-inter prose-headings:font-playfair prose-h2:text-brown-dark prose-h3:text-stone-700 prose-a:text-terracotta-500">
 
           <h2>1. Responsable du traitement</h2>
-          <p>La Brocante du Sud, entreprise individuelle, 12 Rue de la République, 13100 Aix-en-Provence. Contact : <a href="mailto:contact@labrocantedusud.fr">contact@labrocantedusud.fr</a></p>
+          <p>La Brocante de Nanie, entreprise individuelle, 12 Rue de la République, 13100 Aix-en-Provence. Contact : <a href="mailto:contact@labrocantedenanie.fr">contact@labrocantedenanie.fr</a></p>
 
           <h2>2. Données collectées</h2>
           <p>Nous collectons uniquement les données nécessaires à la relation commerciale :</p>
@@ -70,7 +70,7 @@ export default function ConfidentialitePage() {
             <li><strong>Portabilité</strong> : recevoir vos données dans un format lisible</li>
             <li><strong>Opposition</strong> : vous opposer au traitement</li>
           </ul>
-          <p>Pour exercer ces droits : <a href="mailto:contact@labrocantedusud.fr">contact@labrocantedusud.fr</a></p>
+          <p>Pour exercer ces droits : <a href="mailto:contact@labrocantedenanie.fr">contact@labrocantedenanie.fr</a></p>
           <p>En cas de réclamation, vous pouvez saisir la <a href="https://www.cnil.fr">CNIL</a>.</p>
 
           <h2>8. Cookies</h2>

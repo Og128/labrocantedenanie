@@ -35,7 +35,7 @@ export async function createPayPalOrder(amount: number, currency = 'EUR'): Promi
             currency_code: currency,
             value: amount.toFixed(2),
           },
-          description: 'La Brocante du Sud',
+          description: 'La Brocante de Nanie',
         },
       ],
     }),
