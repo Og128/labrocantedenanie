@@ -28,7 +28,7 @@ const checkoutSchema = z.object({
 type CheckoutForm = z.infer<typeof checkoutSchema>
 
 export default function CheckoutPage() {
-  const { items, total, clearCart } = useCart()
+  const { items, total, clearCart, removeItem } = useCart()
   const router = useRouter()
   const [stripeLoading, setStripeLoading] = useState(false)
   const shipping = total() > 150 ? 0 : total() < 30 ? 5.9 : total() < 80 ? 8.9 : 12.9
@@ -44,7 +44,7 @@ export default function CheckoutPage() {
     watchedPostalCode.startsWith('97') || watchedPostalCode.startsWith('98')
 
   const buildPayload = (data: CheckoutForm) => ({
-    items,
+    items: items.map((i) => ({ id: i.id })),
     shippingAddress: {
       line1: data.address,
       line2: data.address2 || '',
@@ -69,8 +69,13 @@ export default function CheckoutPage() {
       const json = await res.json()
       if (json.url) {
         window.location.href = json.url
+      } else if (json.unavailableIds?.length > 0) {
+        json.unavailableIds.forEach((id: string) => removeItem(id))
+        toast.error('Certains articles ne sont plus disponibles et ont été retirés de votre panier.')
+        router.push('/panier')
       } else {
-        throw new Error()
+        toast.error(json.error || 'Une erreur est survenue.')
+        setStripeLoading(false)
       }
     } catch {
       toast.error('Une erreur est survenue. Veuillez ressayer.')
@@ -87,10 +92,20 @@ export default function CheckoutPage() {
     const res = await fetch('/api/paypal/create-order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items }),
+      body: JSON.stringify({ items: items.map((i) => ({ id: i.id })) }),
     })
     const data = await res.json()
-    if (!data.id) throw new Error('Impossible de creer la commande PayPal')
+    if (!res.ok) {
+      if (data.unavailableIds?.length > 0) {
+        data.unavailableIds.forEach((id: string) => removeItem(id))
+        toast.error('Certains articles ne sont plus disponibles et ont été retirés de votre panier.')
+        router.push('/panier')
+      } else {
+        toast.error(data.error || 'Impossible de créer la commande PayPal')
+      }
+      return null
+    }
+    if (!data.id) throw new Error('Impossible de créer la commande PayPal')
     return data.id as string
   }
 
@@ -106,6 +121,9 @@ export default function CheckoutPage() {
       if (result.success) {
         clearCart()
         router.push('/confirmation?paypal=1&order_id=' + result.orderId)
+      } else if (result.unavailableIds?.length > 0) {
+        // Payment was captured but items became unavailable — do not clear cart
+        toast.error('Un article est devenu indisponible. Contactez-nous pour un remboursement.')
       } else {
         toast.error(result.error || 'Le paiement a echoue.')
       }

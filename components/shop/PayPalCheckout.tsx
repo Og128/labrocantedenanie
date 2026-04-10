@@ -20,6 +20,7 @@ export default function PayPalCheckout({ onCreateOrder, onApprove, onError }: Pr
     loadScript({
       clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!,
       currency: 'EUR',
+      ...(process.env.NODE_ENV !== 'production' && { buyerCountry: 'FR' }),
     }).then((paypal) => {
       if (!paypal?.Buttons || !containerRef.current) return
       paypal.Buttons({

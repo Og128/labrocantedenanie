@@ -6,6 +6,7 @@ interface OrderEmailData {
   customerName: string
   customerEmail: string
   orderId: string
+  orderReference?: string
   orderItems: Array<{
     title: string
     price: number
@@ -22,7 +23,8 @@ interface OrderEmailData {
 }
 
 export async function sendOrderConfirmationEmail(data: OrderEmailData) {
-  const { customerName, customerEmail, orderId, orderItems, totalAmount, shippingCost, shippingAddress } = data
+  const { customerName, customerEmail, orderId, orderReference, orderItems, totalAmount, shippingCost, shippingAddress } = data
+  const ref = orderReference || orderId.slice(-8).toUpperCase()
 
   const itemsHtml = orderItems
     .map(
@@ -37,7 +39,7 @@ export async function sendOrderConfirmationEmail(data: OrderEmailData) {
   await resend.emails.send({
     from: process.env.EMAIL_FROM!,
     to: customerEmail,
-    subject: `Confirmation de commande #${orderId.slice(-8).toUpperCase()} - La Brocante de Nanie`,
+    subject: `Confirmation de commande #${ref} - La Brocante de Nanie`,
     html: `
 <!DOCTYPE html>
 <html lang="fr">
@@ -57,7 +59,12 @@ export async function sendOrderConfirmationEmail(data: OrderEmailData) {
     <!-- Body -->
     <div style="padding: 30px;">
       <h2 style="color: #6B4F3A; font-family: 'Playfair Display', Georgia, serif;">Merci pour votre commande, ${customerName} !</h2>
-      <p style="color: #555; line-height: 1.6;">Votre commande <strong>#${orderId.slice(-8).toUpperCase()}</strong> a bien été reçue et est en cours de traitement. Vous recevrez un email dès qu'elle sera expédiée.</p>
+      <p style="color: #555; line-height: 1.6;">Votre commande <strong>#${ref}</strong> a bien ete recue et est en cours de traitement.</p>
+      <div style="background: #faf7f2; border: 2px solid #C4623A; border-radius: 6px; padding: 16px; margin: 16px 0; text-align: center;">
+        <p style="color: #888; margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Reference de commande</p>
+        <p style="color: #C4623A; font-size: 26px; font-weight: bold; margin: 0; font-family: monospace; letter-spacing: 3px;">${ref}</p>
+        <p style="color: #888; margin: 6px 0 0; font-size: 12px;">Utilisez cette reference sur <a href="${process.env.NEXT_PUBLIC_SITE_URL}/suivi" style="color: #C4623A;">notre page de suivi</a></p>
+      </div>
 
       <!-- Order Summary -->
       <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
@@ -108,14 +115,22 @@ export async function sendShippingEmail(data: {
   customerName: string
   customerEmail: string
   orderId: string
-  trackingNumber: string
+  trackingNumber: string | null
 }) {
   const { customerName, customerEmail, orderId, trackingNumber } = data
+  const ref = orderId.slice(-8).toUpperCase()
+
+  const trackingBlock = trackingNumber
+    ? `<div style="background: #faf7f2; border: 2px solid #C4623A; border-radius: 8px; padding: 20px; margin: 20px 0; text-align: center;">
+      <p style="color: #888; margin: 0 0 5px; font-size: 12px; text-transform: uppercase;">Numéro de suivi</p>
+      <p style="color: #C4623A; font-size: 22px; font-weight: bold; margin: 0;">${trackingNumber}</p>
+    </div>`
+    : ''
 
   await resend.emails.send({
     from: process.env.EMAIL_FROM!,
     to: customerEmail,
-    subject: `Votre commande #${orderId.slice(-8).toUpperCase()} a été expédiée !`,
+    subject: `Votre commande #${ref} a été expédiée !`,
     html: `
 <!DOCTYPE html>
 <html lang="fr">
@@ -123,11 +138,8 @@ export async function sendShippingEmail(data: {
   <div style="max-width: 600px; margin: 0 auto; background: #fdfbf8; border-radius: 8px; padding: 30px;">
     <h1 style="color: #C4623A; font-family: Georgia, serif;">📦 Votre colis est en route !</h1>
     <p>Bonjour ${customerName},</p>
-    <p>Bonne nouvelle ! Votre commande <strong>#${orderId.slice(-8).toUpperCase()}</strong> a été expédiée.</p>
-    <div style="background: #faf7f2; border: 2px solid #C4623A; border-radius: 8px; padding: 20px; margin: 20px 0; text-align: center;">
-      <p style="color: #888; margin: 0 0 5px; font-size: 12px; text-transform: uppercase;">Numéro de suivi</p>
-      <p style="color: #C4623A; font-size: 22px; font-weight: bold; margin: 0;">${trackingNumber}</p>
-    </div>
+    <p>Bonne nouvelle ! Votre commande <strong>#${ref}</strong> a été expédiée.</p>
+    ${trackingBlock}
     <p style="color: #888; font-size: 13px;">Pour toute question : <a href="mailto:${process.env.EMAIL_CONTACT}" style="color: #C4623A;">${process.env.EMAIL_CONTACT}</a></p>
     <p style="color: #6B4F3A;">— L'équipe de La Brocante de Nanie</p>
   </div>

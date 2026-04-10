@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { PlusCircle, Edit, Eye } from 'lucide-react'
 import ProductStatusToggle from '@/components/admin/ProductStatusToggle'
+import DeleteProductButton from '@/components/admin/DeleteProductButton'
 import type { Metadata } from 'next'
 import type { Status } from '@prisma/client'
 
@@ -117,7 +118,7 @@ export default async function AdminProduitsPage({
                       <ProductStatusToggle product={product} />
                     </td>
                     <td className="px-4 py-3">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1">
                         <Link
                           href={`/admin/produits/${product.id}`}
                           className="p-1.5 text-stone-400 hover:text-terracotta-500 transition-colors"
@@ -133,6 +134,7 @@ export default async function AdminProduitsPage({
                         >
                           <Eye size={16} />
                         </Link>
+                        <DeleteProductButton productId={product.id} productTitle={product.title} />
                       </div>
                     </td>
                   </tr>

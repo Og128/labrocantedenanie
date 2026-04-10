@@ -6,21 +6,17 @@ import { z } from 'zod'
 
 const checkoutSchema = z.object({
   items: z.array(z.object({
-    id: z.string(),
-    title: z.string(),
-    price: z.number(),
-    image: z.string(),
-    slug: z.string(),
-  })),
-  customerName: z.string(),
+    id: z.string().min(1).max(50),
+  })).min(1).max(20),
+  customerName: z.string().min(1).max(100),
   customerEmail: z.string().email(),
-  customerPhone: z.string().optional(),
+  customerPhone: z.string().max(20).optional(),
   shippingAddress: z.object({
-    line1: z.string(),
-    line2: z.string().optional(),
-    city: z.string(),
-    postalCode: z.string(),
-    country: z.string(),
+    line1: z.string().min(1).max(200),
+    line2: z.string().max(200).optional(),
+    city: z.string().min(1).max(100),
+    postalCode: z.string().min(1).max(10),
+    country: z.string().min(1).max(100),
   }),
 })
 
@@ -30,26 +26,22 @@ export async function POST(req: NextRequest) {
     const { items, customerName, customerEmail, customerPhone, shippingAddress } =
       checkoutSchema.parse(body)
 
-    if (items.length === 0) {
-      return NextResponse.json({ error: 'Panier vide' }, { status: 400 })
-    }
-
-    // Verify products are still available
     const productIds = items.map((i) => i.id)
     const products = await prisma.product.findMany({
       where: { id: { in: productIds }, status: 'AVAILABLE' },
     })
 
-    if (products.length !== items.length) {
+    if (products.length !== productIds.length) {
+      const foundIds = new Set(products.map((p) => p.id))
+      const unavailableIds = productIds.filter((id) => !foundIds.has(id))
       return NextResponse.json(
-        { error: 'Certains articles ne sont plus disponibles' },
+        { error: 'Certains articles ne sont plus disponibles', unavailableIds },
         { status: 400 }
       )
     }
 
     const subtotal = products.reduce((acc, p) => acc + p.price, 0)
     const shippingCost = await calculateShipping(subtotal)
-    const total = subtotal + shippingCost
 
     const lineItems: any[] = products.map((product) => ({
       price_data: {
@@ -64,14 +56,11 @@ export async function POST(req: NextRequest) {
       quantity: 1,
     }))
 
-    // Add shipping as a line item
     if (shippingCost > 0) {
       lineItems.push({
         price_data: {
           currency: 'eur',
-          product_data: {
-            name: 'Frais de livraison',
-          },
+          product_data: { name: 'Frais de livraison' },
           unit_amount: Math.round(shippingCost * 100),
         },
         quantity: 1,

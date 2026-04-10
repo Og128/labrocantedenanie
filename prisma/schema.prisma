@@ -131,8 +131,9 @@ model Product {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-  orderItem OrderItem?
-  reviews   Review[]
+  orderItem  OrderItem?
+  reviews    Review[]
+
 }
 
 // ============================================================
@@ -162,10 +163,10 @@ model Order {
 }
 
 model OrderItem {
-  id        String  @id @default(cuid())
+  id        String @id @default(cuid())
   orderId   String
-  productId String  @unique
-  quantity  Int     @default(1)
+  productId String @unique
+  quantity  Int    @default(1)
   price     Float
 
   order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)

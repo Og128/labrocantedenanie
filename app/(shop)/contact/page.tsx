@@ -64,10 +64,10 @@ export default function ContactPage() {
 
             <div className="space-y-5">
               {[
-                { icon: MapPin, label: 'Adresse', value: '12 Rue de la République\n13100 Aix-en-Provence' },
-                { icon: Phone, label: 'Téléphone', value: '+33 (0)4 42 XX XX XX' },
-                { icon: Mail, label: 'Email', value: 'contact@labrocantedusud.fr' },
-                { icon: Clock, label: 'Horaires', value: 'Mar–Sam : 10h–18h30\nDimanche : 10h–17h\nLundi : Fermé' },
+                { icon: MapPin, label: 'Adresse', value: '14 Rue des Huguenots\n83670 Tavernes (Var)' },
+                { icon: Phone, label: 'Téléphone', value: '06 16 74 69 15' },
+                { icon: Mail, label: 'Email', value: 'nanou2503@aol.com' },
+                { icon: Clock, label: 'Présence', value: 'Vide-greniers & brocantes\ndans le Var, Haut-Var et Verdon' },
               ].map(({ icon: Icon, label, value }) => (
                 <div key={label} className="flex gap-4">
                   <div className="w-9 h-9 bg-terracotta-50 rounded-full flex items-center justify-center shrink-0">

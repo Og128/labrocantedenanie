@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Mail, Phone, MapPin, Share2, ExternalLink } from 'lucide-react'
+import CookiePreferencesLink from '@/components/ui/CookiePreferencesLink'
 
 export default function Footer() {
   return (
@@ -54,6 +55,7 @@ export default function Footer() {
               {[
                 { href: '/a-propos', label: 'Notre histoire' },
                 { href: '/livraison', label: 'Livraison & Retours' },
+                { href: '/suivi', label: 'Suivi de commande' },
                 { href: '/cgv', label: 'Conditions générales' },
                 { href: '/mentions-legales', label: 'Mentions légales' },
                 { href: '/confidentialite', label: 'Confidentialité' },
@@ -73,22 +75,17 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-sm font-inter text-cream/70">
                 <MapPin size={16} className="mt-0.5 shrink-0 text-terracotta-400" />
-                <span>12 Rue de la République<br />13100 Aix-en-Provence</span>
+                <span>Tavernes (83670)<br />Var, Haut-Var & Verdon</span>
               </li>
               <li className="flex items-center gap-3 text-sm font-inter text-cream/70">
                 <Phone size={16} className="shrink-0 text-terracotta-400" />
-                <a href="tel:+33442000000" className="hover:text-cream transition-colors">+33 (0)4 42 XX XX XX</a>
+                <a href="tel:+33616746915" className="hover:text-cream transition-colors">06 16 74 69 15</a>
               </li>
               <li className="flex items-center gap-3 text-sm font-inter text-cream/70">
                 <Mail size={16} className="shrink-0 text-terracotta-400" />
-                <a href="mailto:contact@labrocantedusud.fr" className="hover:text-cream transition-colors">contact@labrocantedusud.fr</a>
+                <a href="mailto:nanou2503@aol.com" className="hover:text-cream transition-colors">nanou2503@aol.com</a>
               </li>
             </ul>
-            <div className="mt-4 pt-4 border-t border-white/10">
-              <p className="text-xs text-cream/50 font-inter">
-                Mar–Sam : 10h–18h30<br />Dim : 10h–17h
-              </p>
-            </div>
           </div>
         </div>
 
@@ -96,7 +93,8 @@ export default function Footer() {
           <p className="text-cream/40 text-xs font-inter">
             © {new Date().getFullYear()} La Brocante de Nanie. Tous droits réservés.
           </p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
+            <CookiePreferencesLink />
             <img src="/images/stripe-badge.svg" alt="Paiement sécurisé Stripe" className="h-6 opacity-50" />
           </div>
         </div>

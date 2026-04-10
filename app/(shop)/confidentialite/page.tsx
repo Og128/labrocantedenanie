@@ -17,7 +17,7 @@ export default function ConfidentialitePage() {
         <div className="prose prose-stone max-w-none font-inter prose-headings:font-playfair prose-h2:text-brown-dark prose-h3:text-stone-700 prose-a:text-terracotta-500">
 
           <h2>1. Responsable du traitement</h2>
-          <p>La Brocante de Nanie, entreprise individuelle, 12 Rue de la République, 13100 Aix-en-Provence. Contact : <a href="mailto:contact@labrocantedenanie.fr">contact@labrocantedenanie.fr</a></p>
+          <p>La Brocante de Nanie, entreprise individuelle, 14 Rue des Huguenots, 83670 Tavernes. Contact : <a href="mailto:nanou2503@aol.com">nanou2503@aol.com</a></p>
 
           <h2>2. Données collectées</h2>
           <p>Nous collectons uniquement les données nécessaires à la relation commerciale :</p>
@@ -54,10 +54,11 @@ export default function ConfidentialitePage() {
           <h2>6. Partage des données</h2>
           <p>Vos données peuvent être transmises à nos sous-traitants dans le strict cadre de leur mission :</p>
           <ul>
-            <li><strong>Stripe</strong> : paiement sécurisé (USA/Europe)</li>
-            <li><strong>Resend</strong> : envoi d'emails transactionnels</li>
-            <li><strong>Supabase</strong> : hébergement de la base de données</li>
-            <li><strong>Cloudinary</strong> : hébergement des images</li>
+            <li><strong>Stripe</strong> : paiement sécurisé par carte bancaire — nom, email et adresse de livraison transmis lors du paiement (USA/Europe, certifié PCI DSS)</li>
+            <li><strong>PayPal</strong> : paiement alternatif — montant total transmis ; PayPal collecte vos données de compte séparément selon sa propre politique de confidentialité</li>
+            <li><strong>Resend</strong> : envoi d'emails transactionnels (confirmation de commande, expédition)</li>
+            <li><strong>Supabase</strong> : hébergement de la base de données (Union Européenne)</li>
+            <li><strong>Cloudinary</strong> : hébergement des images produits (aucune donnée personnelle transmise)</li>
           </ul>
           <p>Ces prestataires sont soumis à des obligations de confidentialité et ne peuvent utiliser vos données à d'autres fins.</p>
 
@@ -76,10 +77,11 @@ export default function ConfidentialitePage() {
           <h2>8. Cookies</h2>
           <p>Ce site utilise :</p>
           <ul>
-            <li><strong>Cookies essentiels</strong> (session, panier) : nécessaires au fonctionnement, pas de consentement requis</li>
-            <li><strong>Cookies analytiques</strong> : mesure d'audience anonymisée, soumis à votre consentement via le bandeau cookies</li>
+            <li><strong>Cookies essentiels</strong> : cookie de session administrateur (NextAuth) nécessaire au fonctionnement du back-office — aucun consentement requis</li>
+            <li><strong>Cookie de consentement</strong> (<code>brocante-consent</code>) : mémorise votre choix d'acceptation ou de refus — durée 365 jours</li>
+            <li><strong>Données de panier</strong> : stockées dans le <em>localStorage</em> de votre navigateur (pas un cookie), effacées à la fin de votre commande</li>
           </ul>
-          <p>Vous pouvez gérer vos préférences à tout moment en cliquant sur le lien "Gérer les cookies" en bas de page.</p>
+          <p>Vous pouvez modifier vos préférences à tout moment en cliquant sur <strong>"Gérer mes cookies"</strong> en bas de chaque page.</p>
         </div>
       </div>
     </div>

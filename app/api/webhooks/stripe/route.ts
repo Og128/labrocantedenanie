@@ -25,19 +25,27 @@ export async function POST(req: NextRequest) {
     const session = event.data.object as Stripe.Checkout.Session
 
     try {
+      // Idempotency: if this session was already processed, return 200 immediately.
+      // Stripe retries webhooks on non-2xx responses, so a duplicate must be silently acknowledged.
+      const existing = await prisma.order.findFirst({
+        where: { stripeSessionId: session.id },
+      })
+      if (existing) {
+        console.log(`Webhook: session ${session.id} already processed, skipping`)
+        return NextResponse.json({ received: true })
+      }
+
       const metadata = session.metadata!
-      const productIds = JSON.parse(metadata.productIds) as string[]
+      const productIds: string[] = JSON.parse(metadata.productIds)
       const shippingAddress = JSON.parse(metadata.shippingAddress)
       const shippingCost = parseFloat(metadata.shippingCost)
 
-      // Get products
       const products = await prisma.product.findMany({
         where: { id: { in: productIds } },
       })
 
       const totalAmount = (session.amount_total || 0) / 100
 
-      // Create order
       const order = await prisma.order.create({
         data: {
           customerEmail: session.customer_email || '',
@@ -59,13 +67,11 @@ export async function POST(req: NextRequest) {
         },
       })
 
-      // Mark products as sold
       await prisma.product.updateMany({
         where: { id: { in: productIds } },
         data: { status: 'SOLD' },
       })
 
-      // Send confirmation email
       await sendOrderConfirmationEmail({
         customerName: metadata.customerName,
         customerEmail: session.customer_email || '',
@@ -76,7 +82,7 @@ export async function POST(req: NextRequest) {
         shippingAddress,
       })
 
-      console.log(`✅ Order ${order.id} created for ${session.customer_email}`)
+      console.log(`✅ Order ${order.id} created via Stripe webhook`)
     } catch (error) {
       console.error('Error processing webhook:', error)
       return NextResponse.json({ error: 'Processing error' }, { status: 500 })
@@ -85,5 +91,3 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json({ received: true })
 }
-
-// App Router handles raw body automatically — no bodyParser config needed

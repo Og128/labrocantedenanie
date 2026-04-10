@@ -4,8 +4,19 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'À propos',
-  description: 'L\'histoire de La Brocante de Nanie, notre passion pour les objets anciens et notre engagement pour un commerce responsable.',
+  description: 'L\'histoire de Nanie, passionnée de brocante depuis plus de 20 ans dans le Var et le Vaucluse.',
 }
+
+const laurisImages = [
+  '41500313_253633905494096_5900202677110833152_n.jpg',
+  '109563052_672769643580518_7093112486412023677_n.jpg',
+  '126834513_770416060482542_6925759181115426293_n.jpg',
+  '150935937_824534828403998_6901791273376149921_n.jpg',
+  '205089756_899965087527638_4028771857320490208_n.jpg',
+  '355907779_789354452976141_3801494231805934845_n.jpg',
+  '470022970_1688285038695635_617803208036421180_n.jpg',
+  '486716618_1187714536473462_1100945140932855885_n.jpg',
+]
 
 export default function AProposPage() {
   return (
@@ -15,20 +26,20 @@ export default function AProposPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="section-title mb-4">Notre histoire</h1>
           <p className="section-subtitle text-lg max-w-2xl mx-auto">
-            Depuis plus de vingt ans, nous écrivons l'histoire des objets d'antan pour qu'ils trouvent de nouveaux foyers où briller.
+            Depuis plus de vingt ans, Nanie chine et récupère des objets authentiques pour leur offrir une nouvelle vie.
           </p>
         </div>
       </section>
 
-      {/* Story */}
+      {/* Nanie's story */}
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative">
               <div className="relative h-96 rounded-sm overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800"
-                  alt="Marie-Christine dans sa brocante"
+                  src="/images/lauris/475238524_1719931722197633_4349565079218907704_n.jpg"
+                  alt="Nanie et ses trésors"
                   fill
                   className="object-cover"
                 />
@@ -42,17 +53,17 @@ export default function AProposPage() {
             <div>
               <p className="text-terracotta-500 text-sm font-inter uppercase tracking-widest mb-3">Mon histoire</p>
               <h2 className="font-playfair text-3xl text-brown-dark mb-6">
-                Marie-Christine Dubois,<br />brocanteur de passion
+                Nadine Gautheron,<br />Nanie pour les intimes
               </h2>
               <div className="prose text-stone-600 font-inter leading-relaxed space-y-4">
                 <p>
-                  Tout a commencé dans le grenier de ma grand-mère, à Aix-en-Provence, où je passais des heures à explorer des trésors oubliés. Ce goût pour les objets du passé ne m'a jamais quittée.
+                  Nanie adore chiner depuis plus de 20 ans. Pour elle, chaque objet a une histoire — celle des mains qui l'ont tenu, des foyers qui l'ont accueilli, des moments qu'il a traversés.
                 </p>
                 <p>
-                  Après des études de restauration d'œuvres d'art, j'ai décidé de transformer ma passion en vocation. Chaque semaine, je parcours les marchés aux puces, les salles des ventes et les greniers de particuliers pour dénicher des pièces authentiques qui méritent une seconde vie.
+                  Elle sillonne les vide-greniers et brocantes du <strong>Var, du Haut-Var et du Verdon</strong> pour récupérer des pièces authentiques, souvent oubliées, toujours uniques. Des objets vrais, avec du vécu.
                 </p>
                 <p>
-                  Ma philosophie ? Chaque objet porte en lui l'histoire de ceux qui l'ont aimé avant vous. En l'adoptant, vous n'achetez pas simplement un meuble ou un bibelot — vous devenez le gardien d'un fragment de mémoire collective.
+                  Sa philosophie est simple : rien ne se perd, tout se transforme. En adoptant l'un de ces trésors, vous devenez le nouveau gardien de son histoire.
                 </p>
               </div>
             </div>
@@ -60,8 +71,55 @@ export default function AProposPage() {
         </div>
       </section>
 
-      {/* Values */}
+      {/* Boutique de Lauris */}
       <section className="py-16 bg-cream">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <p className="text-terracotta-500 text-sm font-inter uppercase tracking-widest mb-3">Une page de notre histoire</p>
+            <h2 className="section-title mb-4">La boutique de Lauris</h2>
+            <p className="section-subtitle max-w-2xl mx-auto">
+              Pendant cinq ans, Nanie a tenu une boutique brocante au cœur du village de Lauris, dans le Vaucluse.
+              Un lieu plein de caractère, niché au milieu du village, où les chineurs venaient chercher la perle rare.
+            </p>
+          </div>
+
+          {/* France Bleu mention */}
+          <div className="bg-white border-l-4 border-terracotta-500 rounded-sm p-6 mb-10 max-w-2xl mx-auto">
+            <p className="text-stone-500 font-inter text-xs uppercase tracking-widest mb-1">Ils en ont parlé</p>
+            <p className="font-playfair text-lg text-brown-dark mb-2">France Bleu / Radio France</p>
+            <p className="text-stone-600 font-inter text-sm leading-relaxed mb-3">
+              La boutique de Lauris a eu les honneurs d'un reportage sur France Bleu,
+              la radio locale de Radio France — une belle reconnaissance pour cette adresse devenue incontournable dans le village.
+            </p>
+            <a
+              href="https://www.radiofrance.fr/francebleu/podcasts/un-jour-en-vaucluse/lauris-les-petits-bonheurs-de-nanie-3700376"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-terracotta-500 hover:text-terracotta-600 font-inter text-sm font-medium transition-colors"
+            >
+              Écouter le reportage →
+            </a>
+          </div>
+
+          {/* Image gallery */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {laurisImages.map((img, i) => (
+              <div key={i} className="relative aspect-square rounded-sm overflow-hidden bg-beige">
+                <Image
+                  src={`/images/lauris/${img}`}
+                  alt={`La boutique de Lauris - photo ${i + 1}`}
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Values */}
+      <section className="py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="section-title">Nos valeurs</h2>
@@ -72,17 +130,17 @@ export default function AProposPage() {
               {
                 icon: Heart,
                 title: 'Authenticité',
-                description: 'Nous ne vendons que des pièces originales, soigneusement vérifiées. Chaque description est honnête et détaillée pour vous éviter toute mauvaise surprise.',
+                description: 'Uniquement des pièces originales, soigneusement sélectionnées. Chaque description est honnête et les photos fidèles à la réalité.',
               },
               {
                 icon: Leaf,
                 title: 'Éco-responsabilité',
-                description: 'Acheter ancien, c\'est le geste éco-responsable par excellence. Pas de production, pas de transport intercontinental, pas de déchets d\'emballage inutiles.',
+                description: 'Acheter ancien, c\'est le geste éco-responsable par excellence. Pas de production, pas de transport intercontinental, une seconde vie donnée aux objets.',
               },
               {
                 icon: Shield,
                 title: 'Confiance',
-                description: 'Paiement sécurisé, descriptions fidèles à la réalité, retours acceptés sous 14 jours. Votre satisfaction est notre priorité absolue.',
+                description: 'Paiement sécurisé, descriptions fidèles, retours acceptés sous 14 jours. Votre satisfaction est notre priorité.',
               },
             ].map((value, i) => {
               const Icon = value.icon

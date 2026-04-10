@@ -22,19 +22,24 @@ const productSchema = z.object({
 })
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url)
-  const category = searchParams.get('category')
-  const status = searchParams.get('status')
+  try {
+    const { searchParams } = new URL(req.url)
+    const category = searchParams.get('category')
+    const status = searchParams.get('status')
 
-  const products = await prisma.product.findMany({
-    where: {
-      ...(category && { category: category as any }),
-      ...(status && { status: status as any }),
-    },
-    orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
-  })
+    const products = await prisma.product.findMany({
+      where: {
+        ...(category && { category: category as any }),
+        ...(status && { status: status as any }),
+      },
+      orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
+    })
 
-  return NextResponse.json(products)
+    return NextResponse.json(products)
+  } catch (error) {
+    console.error('GET /api/products error:', error)
+    return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 })
+  }
 }
 
 export async function POST(req: NextRequest) {

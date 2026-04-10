@@ -35,26 +35,30 @@ export async function PATCH(
     return NextResponse.json({ error: 'Non autorisé' }, { status: 401 })
   }
 
-  const { id } = await params
-  const body = await req.json()
+  try {
+    const { id } = await params
+    const body = await req.json()
 
-  const order = await prisma.order.update({
-    where: { id },
-    data: {
-      status: body.status,
-      trackingNumber: body.trackingNumber,
-    },
-  })
-
-  // Send shipping email when status changes to SHIPPED
-  if (body.status === 'SHIPPED' && body.trackingNumber) {
-    await sendShippingEmail({
-      customerName: order.customerName,
-      customerEmail: order.customerEmail,
-      orderId: order.id,
-      trackingNumber: body.trackingNumber,
+    const order = await prisma.order.update({
+      where: { id },
+      data: {
+        status: body.status,
+        trackingNumber: body.trackingNumber,
+      },
     })
-  }
 
-  return NextResponse.json(order)
+    if (body.status === 'SHIPPED') {
+      await sendShippingEmail({
+        customerName: order.customerName,
+        customerEmail: order.customerEmail,
+        orderId: order.id,
+        trackingNumber: body.trackingNumber || null,
+      })
+    }
+
+    return NextResponse.json(order)
+  } catch (error) {
+    console.error('PATCH /api/orders/[id] error:', error)
+    return NextResponse.json({ error: 'Erreur lors de la mise à jour de la commande' }, { status: 500 })
+  }
 }

@@ -19,15 +19,15 @@ export default function MentionsLegalesPage() {
           <p>
             <strong>La Brocante de Nanie</strong><br />
             Entreprise individuelle<br />
-            12 Rue de la République, 13100 Aix-en-Provence<br />
-            Téléphone : +33 (0)4 42 XX XX XX<br />
-            Email : contact@labrocantedenanie.fr<br />
+            14 Rue des Huguenots, 83670 Tavernes<br />
+            Téléphone : 06 16 74 69 15<br />
+            Email : nanou2503@aol.com<br />
             SIRET : XXX XXX XXX XXXXX<br />
             N° TVA intracommunautaire : FRXX XXX XXX XXX
           </p>
 
           <h2>Directrice de la publication</h2>
-          <p>Marie-Christine Dubois</p>
+          <p>Nadine Gautheron</p>
 
           <h2>Hébergement</h2>
           <p>
@@ -47,7 +47,7 @@ export default function MentionsLegalesPage() {
           <p>Ce site utilise des cookies techniques nécessaires à son bon fonctionnement et des cookies analytiques pour mesurer l'audience. Voir notre <a href="/confidentialite" className="text-terracotta-500">politique de confidentialité</a>.</p>
 
           <h2>Litiges</h2>
-          <p>Tout litige relatif à l'utilisation du site est soumis au droit français et relève de la compétence des tribunaux d'Aix-en-Provence.</p>
+          <p>Tout litige relatif à l'utilisation du site est soumis au droit français et relève de la compétence des tribunaux de Draguignan.</p>
         </div>
       </div>
     </div>

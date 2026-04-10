@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
+import { RefreshCw } from 'lucide-react'
 import type { Product } from '@prisma/client'
 
 interface Props {
@@ -41,13 +42,15 @@ export default function ProductStatusToggle({ product }: Props) {
     <button
       onClick={toggle}
       disabled={loading}
-      className={`px-2.5 py-1 rounded-full text-xs font-medium transition-colors disabled:opacity-50 ${
+      title={`Cliquer pour marquer comme ${status === 'AVAILABLE' ? 'vendu' : 'disponible'}`}
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium transition-colors cursor-pointer disabled:opacity-50 ${
         status === 'AVAILABLE'
           ? 'bg-green-100 text-green-700 hover:bg-green-200'
           : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
       }`}
     >
-      {loading ? '...' : status === 'AVAILABLE' ? 'Disponible' : 'Vendu'}
+      <RefreshCw size={10} className={loading ? 'animate-spin' : ''} />
+      {status === 'AVAILABLE' ? 'Disponible' : 'Vendu'}
     </button>
   )
 }
