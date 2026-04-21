@@ -4,8 +4,13 @@
   "description": "Site e-commerce La Brocante du Sud",
   "scripts": {
     "dev": "next dev",
+<<<<<<< HEAD
     "build": "prisma generate &&next build",
     "start": "next start -p ${PORT:-3000}",
+=======
+    "build": "next build",
+    "start": "next start",
+>>>>>>> 7330d9b9eb8aaaf4c481349047754b54e14f5ba4
     "lint": "next lint",
     "db:push": "prisma db push",
     "db:seed": "ts-node --project tsconfig.seed.json prisma/seed.ts",
