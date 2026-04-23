@@ -2,6 +2,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { calculateShipping } from '@/lib/shipping'
+
+export async function GET(req: NextRequest) {
+  const total = parseFloat(req.nextUrl.searchParams.get('total') || '0')
+  const cost = await calculateShipping(total)
+  return NextResponse.json({ cost })
+}
 
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions)

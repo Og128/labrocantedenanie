@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',  // ← ajoute cette ligne
+  output: 'standalone',
   images: {
     remotePatterns: [
       {

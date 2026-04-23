@@ -5,10 +5,18 @@ import { formatPrice } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Trash2, ShoppingBag, ArrowRight } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 export default function PanierPage() {
   const { items, removeItem, total } = useCart()
-  const shipping = total() > 150 ? 0 : total() < 30 ? 5.9 : total() < 80 ? 8.9 : 12.9
+  const [shipping, setShipping] = useState<number | null>(null)
+
+  useEffect(() => {
+    fetch(`/api/shipping?total=${total()}`)
+      .then((r) => r.json())
+      .then((d) => setShipping(d.cost))
+      .catch(() => setShipping(9.9))
+  }, [items])
 
   if (items.length === 0) {
     return (
@@ -74,7 +82,7 @@ export default function PanierPage() {
               <div className="flex justify-between text-stone-600">
                 <span>Livraison</span>
                 <span className={shipping === 0 ? 'text-green-600 font-medium' : ''}>
-                  {shipping === 0 ? 'Offerte' : formatPrice(shipping)}
+                  {shipping === null ? '...' : shipping === 0 ? 'Offerte' : formatPrice(shipping)}
                 </span>
               </div>
               {shipping === 0 && (
@@ -83,7 +91,7 @@ export default function PanierPage() {
               <div className="pt-3 border-t border-beige flex justify-between font-semibold text-stone-800 text-base">
                 <span>Total</span>
                 <span className="text-terracotta-500 font-playfair text-xl">
-                  {formatPrice(total() + shipping)}
+                  {shipping === null ? '...' : formatPrice(total() + shipping)}
                 </span>
               </div>
             </div>

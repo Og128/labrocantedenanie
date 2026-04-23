@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useCart } from '@/lib/cart'
 import { formatPrice } from '@/lib/utils'
 import Image from 'next/image'
@@ -30,7 +30,14 @@ export default function CheckoutPage() {
   const { items, total, removeItem } = useCart()
   const router = useRouter()
   const [stripeLoading, setStripeLoading] = useState(false)
-  const shipping = total() > 150 ? 0 : total() < 30 ? 5.9 : total() < 80 ? 8.9 : 12.9
+  const [shipping, setShipping] = useState<number | null>(null)
+
+  useEffect(() => {
+    fetch(`/api/shipping?total=${total()}`)
+      .then((r) => r.json())
+      .then((d) => setShipping(d.cost))
+      .catch(() => setShipping(9.9))
+  }, [items])
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm<CheckoutForm>({
     resolver: zodResolver(checkoutSchema),
@@ -242,11 +249,15 @@ export default function CheckoutPage() {
                 </div>
                 <div className="flex justify-between text-stone-500">
                   <span>Livraison</span>
-                  <span className={shipping === 0 ? 'text-green-600' : ''}>{shipping === 0 ? 'Offerte' : formatPrice(shipping)}</span>
+                  <span className={shipping === 0 ? 'text-green-600' : ''}>
+                    {shipping === null ? '...' : shipping === 0 ? 'Offerte' : formatPrice(shipping)}
+                  </span>
                 </div>
                 <div className="flex justify-between font-semibold text-stone-800 text-base pt-2 border-t border-beige">
                   <span>Total</span>
-                  <span className="text-terracotta-500 font-playfair text-xl">{formatPrice(total() + shipping)}</span>
+                  <span className="text-terracotta-500 font-playfair text-xl">
+                    {shipping === null ? '...' : formatPrice(total() + shipping)}
+                  </span>
                 </div>
               </div>
             </div>
