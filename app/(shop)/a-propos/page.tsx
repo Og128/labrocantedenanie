@@ -8,14 +8,14 @@ export const metadata: Metadata = {
 }
 
 const laurisImages = [
-  '41500313_253633905494096_5900202677110833152_n.jpg',
-  '109563052_672769643580518_7093112486412023677_n.jpg',
-  '126834513_770416060482542_6925759181115426293_n.jpg',
-  '150935937_824534828403998_6901791273376149921_n.jpg',
-  '205089756_899965087527638_4028771857320490208_n.jpg',
-  '355907779_789354452976141_3801494231805934845_n.jpg',
-  '470022970_1688285038695635_617803208036421180_n.jpg',
-  '486716618_1187714536473462_1100945140932855885_n.jpg',
+  'https://res.cloudinary.com/dttbty8el/image/upload/v1776946437/150935937_824534828403998_6901791273376149921_n_u629li.jpg',
+  'https://res.cloudinary.com/dttbty8el/image/upload/v1776946436/150669153_824082731782541_807328711923599473_n_drbn4u.jpg',
+  'https://res.cloudinary.com/dttbty8el/image/upload/v1776946434/475325907_1719928252197980_4002765724795673911_n_jxn2oi.jpg',
+  'https://res.cloudinary.com/dttbty8el/image/upload/v1776946433/474867707_1719931515530987_4884462076446412061_n_zikek8.jpg',
+  'https://res.cloudinary.com/dttbty8el/image/upload/v1776946432/473202347_1708207193370086_7971037251323273153_n_gzildv.jpg',
+  'https://res.cloudinary.com/dttbty8el/image/upload/v1776946430/469765770_1685818375608968_8681378642126420447_n_mdqpnt.jpg',
+  'https://res.cloudinary.com/dttbty8el/image/upload/v1776946429/467870718_1673383260185813_1567943150624461360_n_rbh1mx.jpg',
+  'https://res.cloudinary.com/dttbty8el/image/upload/v1776946429/467439035_1673383713519101_3798485183832807361_n_bqqlaz.jpg',
 ]
 
 export default function AProposPage() {
@@ -38,7 +38,7 @@ export default function AProposPage() {
             <div className="relative">
               <div className="relative h-96 rounded-sm overflow-hidden">
                 <Image
-                  src="/images/lauris/475238524_1719931722197633_4349565079218907704_n.jpg"
+                  src="https://res.cloudinary.com/dttbty8el/image/upload/v1776946433/475238524_1719931722197633_4349565079218907704_n_x9lpte.jpg"
                   alt="Nanie et ses trésors"
                   fill
                   className="object-cover"
@@ -106,7 +106,7 @@ export default function AProposPage() {
             {laurisImages.map((img, i) => (
               <div key={i} className="relative aspect-square rounded-sm overflow-hidden bg-beige">
                 <Image
-                  src={`/images/lauris/${img}`}
+                  src={img}
                   alt={`La boutique de Lauris - photo ${i + 1}`}
                   fill
                   className="object-cover hover:scale-105 transition-transform duration-300"
