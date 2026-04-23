@@ -8,7 +8,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 const slides = [
   {
     id: 1,
-    image: 'https://res.cloudinary.com/dttbty8el/image/upload/v1776946432/473236053_1708207600036712_1926819426674144604_n_jauphw.jpg',
+    image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_1600,q_auto,f_auto/v1776946432/473236053_1708207600036712_1926819426674144604_n_jauphw.jpg',
     title: 'Des trésors du passé',
     subtitle: 'pour embellir votre aujourd\'hui',
     cta: { label: 'Découvrir la boutique', href: '/boutique' },
@@ -16,7 +16,7 @@ const slides = [
   },
   {
     id: 2,
-    image: 'https://res.cloudinary.com/dttbty8el/image/upload/v1776946432/474588537_1715679752622830_8512865997999164868_n_miezpq.jpg',
+    image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_1600,q_auto,f_auto/v1776946432/474588537_1715679752622830_8512865997999164868_n_miezpq.jpg',
     title: 'Vaisselle & Arts de la table',
     subtitle: 'Une sélection raffinée de porcelaines et faïences anciennes',
     cta: { label: 'Explorer', href: '/boutique?category=VAISSELLE' },
@@ -24,7 +24,7 @@ const slides = [
   },
   {
     id: 3,
-    image: 'https://res.cloudinary.com/dttbty8el/image/upload/v1776946429/41500313_253633905494096_5900202677110833152_n_c691vi.jpg',
+    image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_1600,q_auto,f_auto/v1776946429/41500313_253633905494096_5900202677110833152_n_c691vi.jpg',
     title: 'Tableaux & Œuvres d\'art',
     subtitle: 'Peintures, lithographies et cadres anciens pour décorer vos murs',
     cta: { label: 'Voir les œuvres', href: '/boutique?category=TABLEAUX' },
