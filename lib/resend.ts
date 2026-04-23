@@ -111,6 +111,43 @@ export async function sendOrderConfirmationEmail(data: OrderEmailData) {
   })
 }
 
+export async function sendAdminOrderNotification(data: {
+  orderId: string
+  customerName: string
+  customerEmail: string
+  orderItems: Array<{ title: string; price: number }>
+  totalAmount: number
+  shippingAddress: { line1: string; line2?: string; city: string; postalCode: string; country: string }
+}) {
+  const { orderId, customerName, customerEmail, orderItems, totalAmount, shippingAddress } = data
+  const ref = orderId.slice(-8).toUpperCase()
+
+  const itemsList = orderItems.map((i) => `- ${i.title} : ${formatPrice(i.price)}`).join('<br>')
+
+  await resend.emails.send({
+    from: process.env.EMAIL_FROM!,
+    to: process.env.EMAIL_CONTACT!,
+    replyTo: process.env.EMAIL_CONTACT!,
+    subject: `🛍️ Nouvelle vente #${ref} — ${formatPrice(totalAmount)}`,
+    html: `
+<div style="font-family: sans-serif; padding: 20px; max-width: 600px;">
+  <h2 style="color: #C4623A;">Nouvelle commande reçue !</h2>
+  <p><strong>Référence :</strong> #${ref}</p>
+  <p><strong>Client :</strong> ${customerName} (${customerEmail})</p>
+  <p><strong>Montant total :</strong> ${formatPrice(totalAmount)}</p>
+  <p><strong>Articles :</strong><br>${itemsList}</p>
+  <p><strong>Adresse de livraison :</strong><br>
+    ${shippingAddress.line1}<br>
+    ${shippingAddress.line2 ? shippingAddress.line2 + '<br>' : ''}
+    ${shippingAddress.postalCode} ${shippingAddress.city}, ${shippingAddress.country}
+  </p>
+  <a href="${process.env.NEXT_PUBLIC_SITE_URL}/admin/commandes" style="display:inline-block;background:#C4623A;color:white;padding:10px 20px;border-radius:4px;text-decoration:none;margin-top:10px;">
+    Voir dans l'admin
+  </a>
+</div>`,
+  })
+}
+
 export async function sendShippingEmail(data: {
   customerName: string
   customerEmail: string

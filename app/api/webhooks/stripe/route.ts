@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
 import { prisma } from '@/lib/prisma'
-import { sendOrderConfirmationEmail } from '@/lib/resend'
+import { sendOrderConfirmationEmail, sendAdminOrderNotification } from '@/lib/resend'
 import Stripe from 'stripe'
 
 export async function POST(req: NextRequest) {
@@ -79,6 +79,15 @@ export async function POST(req: NextRequest) {
         orderItems: products.map((p) => ({ title: p.title, price: p.price })),
         totalAmount,
         shippingCost,
+        shippingAddress,
+      })
+
+      await sendAdminOrderNotification({
+        orderId: order.id,
+        customerName: metadata.customerName,
+        customerEmail: session.customer_email || '',
+        orderItems: products.map((p) => ({ title: p.title, price: p.price })),
+        totalAmount,
         shippingAddress,
       })
 
