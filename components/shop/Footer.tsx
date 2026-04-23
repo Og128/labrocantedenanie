@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Mail, Phone, MapPin, Share2, ExternalLink } from 'lucide-react'
-import CookiePreferencesLink from '@/components/ui/CookiePreferencesLink'
+// import CookiePreferencesLink from '@/components/ui/CookiePreferencesLink'
 
 export default function Footer() {
   return (
@@ -94,7 +94,7 @@ export default function Footer() {
             © {new Date().getFullYear()} La Brocante de Nanie. Tous droits réservés.
           </p>
           <div className="flex items-center gap-4">
-            <CookiePreferencesLink />
+            {/* <CookiePreferencesLink /> */}
             <img src="/images/stripe-badge.svg" alt="Paiement sécurisé Stripe" className="h-6 opacity-50" />
           </div>
         </div>

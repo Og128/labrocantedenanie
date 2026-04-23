@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendContactEmail } from '@/lib/resend'
+import { isRateLimited } from '@/lib/rate-limit'
 import { z } from 'zod'
 
 const schema = z.object({
@@ -10,6 +11,11 @@ const schema = z.object({
 })
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0] || 'unknown'
+  if (isRateLimited(`contact:${ip}`, 3, 60_000)) {
+    return NextResponse.json({ error: 'Trop de messages envoyés. Réessayez dans une minute.' }, { status: 429 })
+  }
+
   try {
     const body = await req.json()
     const data = schema.parse(body)

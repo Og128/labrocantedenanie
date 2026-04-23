@@ -3,6 +3,12 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { sendShippingEmail } from '@/lib/resend'
+import { z } from 'zod'
+
+const updateOrderSchema = z.object({
+  status: z.enum(['PENDING', 'CONFIRMED', 'PREPARING', 'SHIPPED', 'DELIVERED', 'CANCELLED', 'REFUNDED']),
+  trackingNumber: z.string().nullable().optional(),
+})
 
 export async function GET(
   req: NextRequest,
@@ -37,27 +43,31 @@ export async function PATCH(
 
   try {
     const { id } = await params
-    const body = await req.json()
+    const raw = await req.json()
+    const data = updateOrderSchema.parse(raw)
 
     const order = await prisma.order.update({
       where: { id },
       data: {
-        status: body.status,
-        trackingNumber: body.trackingNumber,
+        status: data.status,
+        trackingNumber: data.trackingNumber,
       },
     })
 
-    if (body.status === 'SHIPPED') {
+    if (data.status === 'SHIPPED') {
       await sendShippingEmail({
         customerName: order.customerName,
         customerEmail: order.customerEmail,
         orderId: order.id,
-        trackingNumber: body.trackingNumber || null,
+        trackingNumber: data.trackingNumber || null,
       })
     }
 
     return NextResponse.json(order)
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ error: 'Données invalides' }, { status: 400 })
+    }
     console.error('PATCH /api/orders/[id] error:', error)
     return NextResponse.json({ error: 'Erreur lors de la mise à jour de la commande' }, { status: 500 })
   }

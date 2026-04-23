@@ -63,7 +63,7 @@ export default function AdminLoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-2.5 bg-stone-700 border border-stone-600 rounded-sm text-white placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-terracotta-500 focus:border-transparent text-sm font-inter"
-              placeholder="admin@labrocantedusud.fr"
+              placeholder="admin@labrocantedenanie.com"
               required
             />
           </div>

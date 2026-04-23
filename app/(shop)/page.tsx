@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { prisma } from '@/lib/prisma'
 import ProductCard from '@/components/shop/ProductCard'
 import HeroSlider from '@/components/shop/HeroSlider'
-import NewsletterSection from '@/components/shop/NewsletterSection'
+// import NewsletterSection from '@/components/shop/NewsletterSection'
 import { CATEGORY_LABELS } from '@/lib/utils'
 import { ArrowRight, Leaf, Star, Shield } from 'lucide-react'
 
@@ -19,26 +19,26 @@ const categories = [
   { key: 'TABLEAUX', label: 'Tableaux', icon: '🖼️', image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600' },
 ]
 
-const testimonials = [
-  {
-    name: 'Marie-Hélène B.',
-    text: 'J\'ai trouvé un buffet provençal absolument magnifique. La description était parfaite et la livraison soignée. Je recommande vivement !',
-    rating: 5,
-    location: 'Lyon',
-  },
-  {
-    name: 'Pierre D.',
-    text: 'Service impeccable, objets exactement conformes aux photos. La vendeuse est passionnée et ça se ressent dans la qualité de sa sélection.',
-    rating: 5,
-    location: 'Paris',
-  },
-  {
-    name: 'Sophie M.',
-    text: 'Un vrai coup de cœur pour une lampe à pétrole trouvée ici. Emballage parfait, et la pièce est encore plus belle en vrai !',
-    rating: 5,
-    location: 'Bordeaux',
-  },
-]
+// const testimonials = [
+//   {
+//     name: 'Marie-Hélène B.',
+//     text: 'J\'ai trouvé un buffet provençal absolument magnifique. La description était parfaite et la livraison soignée. Je recommande vivement !',
+//     rating: 5,
+//     location: 'Lyon',
+//   },
+//   {
+//     name: 'Pierre D.',
+//     text: 'Service impeccable, objets exactement conformes aux photos. La vendeuse est passionnée et ça se ressent dans la qualité de sa sélection.',
+//     rating: 5,
+//     location: 'Paris',
+//   },
+//   {
+//     name: 'Sophie M.',
+//     text: 'Un vrai coup de cœur pour une lampe à pétrole trouvée ici. Emballage parfait, et la pièce est encore plus belle en vrai !',
+//     rating: 5,
+//     location: 'Bordeaux',
+//   },
+// ]
 
 async function getNewProducts() {
   return prisma.product.findMany({
@@ -208,41 +208,18 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16 bg-beige">
+      {/* Testimonials — commented out, no real reviews yet */}
+      {/* <section className="py-16 bg-beige">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="section-title">Ce que disent nos clients</h2>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <div key={i} className="bg-offwhite p-6 rounded-sm border border-beige">
-                <div className="flex gap-1 mb-3">
-                  {Array.from({ length: t.rating }).map((_, j) => (
-                    <Star key={j} size={14} className="fill-terracotta-400 text-terracotta-400" />
-                  ))}
-                </div>
-                <p className="text-stone-600 font-inter text-sm leading-relaxed mb-4 italic">
-                  "{t.text}"
-                </p>
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-terracotta-200 flex items-center justify-center text-terracotta-700 font-playfair font-bold text-sm">
-                    {t.name[0]}
-                  </div>
-                  <div>
-                    <p className="text-sm font-inter font-medium text-stone-700">{t.name}</p>
-                    <p className="text-xs text-stone-400 font-inter">{t.location}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          ...
         </div>
-      </section>
+      </section> */}
 
-      {/* Newsletter */}
-      <NewsletterSection />
+      {/* Newsletter — disabled per client request */}
+      {/* <NewsletterSection /> */}
     </div>
   )
 }

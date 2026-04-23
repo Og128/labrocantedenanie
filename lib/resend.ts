@@ -185,6 +185,14 @@ export async function sendShippingEmail(data: {
   })
 }
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
 export async function sendContactEmail(data: {
   name: string
   email: string
@@ -195,15 +203,15 @@ export async function sendContactEmail(data: {
     from: process.env.EMAIL_FROM!,
     to: process.env.EMAIL_CONTACT!,
     replyTo: data.email,
-    subject: `[Contact] ${data.subject} - ${data.name}`,
+    subject: `[Contact] ${escapeHtml(data.subject)} - ${escapeHtml(data.name)}`,
     html: `
 <div style="font-family: sans-serif; padding: 20px;">
   <h2>Nouveau message de contact</h2>
-  <p><strong>Nom :</strong> ${data.name}</p>
-  <p><strong>Email :</strong> ${data.email}</p>
-  <p><strong>Sujet :</strong> ${data.subject}</p>
+  <p><strong>Nom :</strong> ${escapeHtml(data.name)}</p>
+  <p><strong>Email :</strong> ${escapeHtml(data.email)}</p>
+  <p><strong>Sujet :</strong> ${escapeHtml(data.subject)}</p>
   <hr>
-  <p>${data.message.replace(/\n/g, '<br>')}</p>
+  <p>${escapeHtml(data.message).replace(/\n/g, '<br>')}</p>
 </div>`,
   })
 }

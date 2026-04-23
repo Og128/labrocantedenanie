@@ -3,6 +3,23 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { slugify } from '@/lib/utils'
+import { z } from 'zod'
+
+const updateProductSchema = z.object({
+  title: z.string().min(3).optional(),
+  description: z.string().min(10).optional(),
+  price: z.number().positive().optional(),
+  category: z.string().optional(),
+  condition: z.string().optional(),
+  status: z.enum(['AVAILABLE', 'SOLD', 'RESERVED']).optional(),
+  images: z.array(z.string()).optional(),
+  featured: z.boolean().optional(),
+  contactOnly: z.boolean().optional(),
+  weight: z.number().nullable().optional(),
+  dimensions: z.string().nullable().optional(),
+  tags: z.array(z.string()).optional(),
+  sortOrder: z.number().optional(),
+}).strict()
 
 function isAdmin(session: any) {
   return session?.user?.role === 'ADMIN'
@@ -32,24 +49,29 @@ export async function PATCH(
 
   try {
     const { id } = await params
-    const body = await req.json()
+    const raw = await req.json()
+    const data = updateProductSchema.parse(raw)
 
     // Regenerate slug if title changed
-    if (body.title) {
-      const newSlug = slugify(body.title)
+    const updateData: Record<string, unknown> = { ...data }
+    if (data.title) {
+      const newSlug = slugify(data.title)
       const existing = await prisma.product.findFirst({
         where: { slug: newSlug, id: { not: id } },
       })
-      body.slug = existing ? `${newSlug}-${Date.now()}` : newSlug
+      updateData.slug = existing ? `${newSlug}-${Date.now()}` : newSlug
     }
 
     const product = await prisma.product.update({
       where: { id },
-      data: body,
+      data: updateData,
     })
 
     return NextResponse.json(product)
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ error: 'Données invalides', details: error.issues }, { status: 400 })
+    }
     console.error('PATCH /api/products/[id] error:', error)
     return NextResponse.json({ error: 'Erreur lors de la mise à jour' }, { status: 500 })
   }

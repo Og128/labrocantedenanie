@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
-import CookieBanner from '@/components/ui/CookieBanner'
+// import CookieBanner from '@/components/ui/CookieBanner'
 import Providers from '@/components/ui/Providers'
 
 export const metadata: Metadata = {
@@ -84,7 +84,7 @@ export default function RootLayout({
             },
           }}
         />
-        <CookieBanner />
+        {/* <CookieBanner /> */}
         </Providers>
       </body>
     </html>

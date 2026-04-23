@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { isRateLimited } from '@/lib/rate-limit'
 import { z } from 'zod'
 
 const schema = z.object({
@@ -7,6 +8,11 @@ const schema = z.object({
 })
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0] || 'unknown'
+  if (isRateLimited(`newsletter:${ip}`, 5, 60_000)) {
+    return NextResponse.json({ error: 'Trop de requêtes. Réessayez dans une minute.' }, { status: 429 })
+  }
+
   try {
     const body = await req.json()
     const { email } = schema.parse(body)
