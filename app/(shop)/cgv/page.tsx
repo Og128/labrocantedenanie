@@ -18,7 +18,7 @@ export default function CgvPage() {
         <div className="prose prose-stone max-w-none font-inter prose-headings:font-playfair prose-h2:text-brown-dark prose-h3:text-stone-700 prose-a:text-terracotta-500">
 
           <h2>Article 1 – Objet</h2>
-          <p>Les présentes Conditions Générales de Vente (CGV) s'appliquent à toutes les ventes conclues sur le site internet <strong>labrocantedenanie.fr</strong>, exploité par La Brocante de Nanie, entreprise individuelle dont le siège social est situé à Tavernes (83670).</p>
+          <p>Les présentes Conditions Générales de Vente (CGV) s'appliquent à toutes les ventes conclues sur le site internet <strong>labrocantedenanie.com</strong>, exploité par La Brocante de Nanie, entreprise individuelle dont le siège social est situé à Tavernes (83670).</p>
 
           <h2>Article 2 – Produits</h2>
           <p>Les articles proposés à la vente sont des objets de brocante et d'antiquité, à usage unique. Chaque article est décrit avec soin, les photographies étant aussi fidèles que possible à la réalité. Les légères différences de couleur dues à la calibration des écrans ne peuvent engager notre responsabilité.</p>

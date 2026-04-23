@@ -19,10 +19,9 @@ type PaymentStatus = 'confirmed' | 'pending' | 'not_found'
 export default async function ConfirmationPage({
   searchParams,
 }: {
-  searchParams: Promise<{ session_id?: string; paypal?: string; order_id?: string }>
+  searchParams: Promise<{ session_id?: string }>
 }) {
-  const { session_id, paypal, order_id } = await searchParams
-  const isPayPal = !!paypal
+  const { session_id } = await searchParams
   let orderReference = ''
   let status: PaymentStatus = 'not_found'
 
@@ -121,22 +120,6 @@ export default async function ConfirmationPage({
     }
   }
 
-  // ─── PAYPAL FLOW ──────────────────────────────────────────────────────────
-  // The capture-order route returns the Prisma order.id. Look it up directly.
-  if (isPayPal && order_id) {
-    try {
-      const order = await prisma.order.findUnique({
-        where: { id: order_id },
-      })
-      if (order) {
-        orderReference = order.id.slice(-8).toUpperCase()
-        status = 'confirmed'
-      }
-    } catch (error) {
-      console.error('PayPal reference lookup error:', error)
-    }
-  }
-
   // ─── RENDER ───────────────────────────────────────────────────────────────
 
   if (status === 'pending') {
@@ -201,7 +184,7 @@ export default async function ConfirmationPage({
         </h1>
 
         <p className="text-stone-500 font-inter leading-relaxed mb-6">
-          Merci pour votre achat{isPayPal ? ' via PayPal' : ''} ! Vous allez recevoir un email de confirmation avec votre reference de commande.
+          Merci pour votre achat ! Vous allez recevoir un email de confirmation avec votre reference de commande.
         </p>
 
         {orderReference && (

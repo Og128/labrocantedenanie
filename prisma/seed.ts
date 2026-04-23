@@ -23,7 +23,7 @@ async function main() {
   await prisma.user.create({
     data: {
       name: 'Admin',
-      email: process.env.ADMIN_EMAIL || 'admin@labrocantedenanie.fr',
+      email: process.env.ADMIN_EMAIL || 'admin@labrocantedenanie.com',
       password: hashedPassword,
       role: 'ADMIN',
       emailVerified: new Date(),
@@ -82,7 +82,7 @@ Bienvenue dans notre univers chaleureux, où le passé rencontre le présent.`,
       },
       {
         key: 'contact_email',
-        value: 'contact@labrocantedenanie.fr',
+        value: 'contact@labrocantedenanie.com',
         type: 'text',
       },
       {

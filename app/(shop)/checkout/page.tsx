@@ -11,7 +11,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { ArrowLeft, Lock, CreditCard } from 'lucide-react'
 import toast from 'react-hot-toast'
-import PayPalCheckout from '@/components/shop/PayPalCheckout'
 
 const checkoutSchema = z.object({
   firstName: z.string().min(2, 'Prenom requis'),
@@ -28,12 +27,12 @@ const checkoutSchema = z.object({
 type CheckoutForm = z.infer<typeof checkoutSchema>
 
 export default function CheckoutPage() {
-  const { items, total, clearCart, removeItem } = useCart()
+  const { items, total, removeItem } = useCart()
   const router = useRouter()
   const [stripeLoading, setStripeLoading] = useState(false)
   const shipping = total() > 150 ? 0 : total() < 30 ? 5.9 : total() < 80 ? 8.9 : 12.9
 
-  const { register, handleSubmit, trigger, getValues, watch, formState: { errors } } = useForm<CheckoutForm>({
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<CheckoutForm>({
     resolver: zodResolver(checkoutSchema),
     defaultValues: { country: 'France' },
   })
@@ -80,55 +79,6 @@ export default function CheckoutPage() {
     } catch {
       toast.error('Une erreur est survenue. Veuillez ressayer.')
       setStripeLoading(false)
-    }
-  }
-
-  const handlePayPalCreateOrder = async () => {
-    const valid = await trigger()
-    if (!valid) {
-      toast.error('Veuillez remplir tous les champs requis.')
-      return null
-    }
-    const res = await fetch('/api/paypal/create-order', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: items.map((i) => ({ id: i.id })) }),
-    })
-    const data = await res.json()
-    if (!res.ok) {
-      if (data.unavailableIds?.length > 0) {
-        data.unavailableIds.forEach((id: string) => removeItem(id))
-        toast.error('Certains articles ne sont plus disponibles et ont été retirés de votre panier.')
-        router.push('/panier')
-      } else {
-        toast.error(data.error || 'Impossible de créer la commande PayPal')
-      }
-      return null
-    }
-    if (!data.id) throw new Error('Impossible de créer la commande PayPal')
-    return data.id as string
-  }
-
-  const handlePayPalApprove = async (data: { orderID: string }) => {
-    const formData = getValues()
-    try {
-      const res = await fetch('/api/paypal/capture-order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ orderID: data.orderID, ...buildPayload(formData) }),
-      })
-      const result = await res.json()
-      if (result.success) {
-        clearCart()
-        router.push('/confirmation?paypal=1&order_id=' + result.orderId)
-      } else if (result.unavailableIds?.length > 0) {
-        // Payment was captured but items became unavailable — do not clear cart
-        toast.error('Un article est devenu indisponible. Contactez-nous pour un remboursement.')
-      } else {
-        toast.error(result.error || 'Le paiement a echoue.')
-      }
-    } catch {
-      toast.error('Une erreur est survenue avec PayPal.')
     }
   }
 
@@ -245,43 +195,26 @@ export default function CheckoutPage() {
                   </a>
                 </div>
               ) : (
-                <>
-                  <form onSubmit={handleSubmit(onStripeSubmit)}>
-                    <button
-                      type="submit"
-                      disabled={stripeLoading}
-                      className="btn-primary w-full py-4 text-base gap-3 mb-4"
-                    >
-                      {stripeLoading ? (
-                        <>
-                          <span className="animate-spin h-4 w-4 border-2 border-white/30 border-t-white rounded-full" />
-                          Redirection...
-                        </>
-                      ) : (
-                        <>
-                          <Lock size={16} />
-                          <CreditCard size={16} />
-                          Payer par carte bancaire
-                        </>
-                      )}
-                    </button>
-                  </form>
-
-                  <div className="relative my-4">
-                    <div className="absolute inset-0 flex items-center">
-                      <div className="w-full border-t border-beige" />
-                    </div>
-                    <div className="relative flex justify-center">
-                      <span className="bg-white px-3 text-sm text-stone-400 font-inter">ou</span>
-                    </div>
-                  </div>
-
-                  <PayPalCheckout
-                    onCreateOrder={handlePayPalCreateOrder}
-                    onApprove={handlePayPalApprove}
-                    onError={() => toast.error('Une erreur est survenue avec PayPal.')}
-                  />
-                </>
+                <form onSubmit={handleSubmit(onStripeSubmit)}>
+                  <button
+                    type="submit"
+                    disabled={stripeLoading}
+                    className="btn-primary w-full py-4 text-base gap-3"
+                  >
+                    {stripeLoading ? (
+                      <>
+                        <span className="animate-spin h-4 w-4 border-2 border-white/30 border-t-white rounded-full" />
+                        Redirection...
+                      </>
+                    ) : (
+                      <>
+                        <Lock size={16} />
+                        <CreditCard size={16} />
+                        Payer par carte bancaire
+                      </>
+                    )}
+                  </button>
+                </form>
               )}
             </div>
           </div>

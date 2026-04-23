@@ -96,7 +96,7 @@ export default async function LivraisonPage() {
             <p>Conformément au droit de rétractation, vous disposez de <strong>14 jours</strong> à compter de la réception de votre commande pour nous retourner un article.</p>
             <p>Pour initier un retour :</p>
             <ol>
-              <li>Contactez-nous par email à <a href="mailto:contact@labrocantedenanie.fr" className="text-terracotta-500">contact@labrocantedenanie.fr</a> en précisant votre numéro de commande.</li>
+              <li>Contactez-nous par email à <a href="mailto:contact@labrocantedenanie.com" className="text-terracotta-500">contact@labrocantedenanie.com</a> en précisant votre numéro de commande.</li>
               <li>Nous vous confirmerons la procédure de retour sous 48h.</li>
               <li>Retournez l'article dans son emballage d'origine ou dans un emballage équivalent.</li>
               <li>Le remboursement sera effectué sous 14 jours après réception du colis.</li>

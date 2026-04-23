@@ -55,7 +55,6 @@ export default function ConfidentialitePage() {
           <p>Vos données peuvent être transmises à nos sous-traitants dans le strict cadre de leur mission :</p>
           <ul>
             <li><strong>Stripe</strong> : paiement sécurisé par carte bancaire — nom, email et adresse de livraison transmis lors du paiement (USA/Europe, certifié PCI DSS)</li>
-            <li><strong>PayPal</strong> : paiement alternatif — montant total transmis ; PayPal collecte vos données de compte séparément selon sa propre politique de confidentialité</li>
             <li><strong>Resend</strong> : envoi d'emails transactionnels (confirmation de commande, expédition)</li>
             <li><strong>Supabase</strong> : hébergement de la base de données (Union Européenne)</li>
             <li><strong>Cloudinary</strong> : hébergement des images produits (aucune donnée personnelle transmise)</li>
@@ -71,7 +70,7 @@ export default function ConfidentialitePage() {
             <li><strong>Portabilité</strong> : recevoir vos données dans un format lisible</li>
             <li><strong>Opposition</strong> : vous opposer au traitement</li>
           </ul>
-          <p>Pour exercer ces droits : <a href="mailto:contact@labrocantedenanie.fr">contact@labrocantedenanie.fr</a></p>
+          <p>Pour exercer ces droits : <a href="mailto:contact@labrocantedenanie.com">contact@labrocantedenanie.com</a></p>
           <p>En cas de réclamation, vous pouvez saisir la <a href="https://www.cnil.fr">CNIL</a>.</p>
 
           <h2>8. Cookies</h2>
