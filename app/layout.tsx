@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast'
 import Providers from '@/components/ui/Providers'
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://labrocantedenanie.com'),
   title: {
     default: 'La Brocante de Nanie — Des trésors du passé pour embellir votre aujourd\'hui',
     template: '%s | La Brocante de Nanie',
@@ -65,6 +66,48 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@graph': [
+                {
+                  '@type': 'Organization',
+                  '@id': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://labrocantedenanie.com'}/#organization`,
+                  name: 'La Brocante de Nanie',
+                  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://labrocantedenanie.com',
+                  logo: 'https://res.cloudinary.com/dttbty8el/image/upload/w_1200,h_630,c_fill,q_auto,f_auto/v1777022877/lbdn_logo_1_cotdaz.jpg',
+                  description: 'Brocante en ligne — Antiquités et objets anciens du Sud de la France. Meubles, vaisselle, décoration et curiosités authentiques.',
+                  email: 'contact@labrocantedenanie.com',
+                  telephone: '+33616746915',
+                  address: {
+                    '@type': 'PostalAddress',
+                    streetAddress: '14 Rue des Huguenots',
+                    addressLocality: 'Tavernes',
+                    postalCode: '83670',
+                    addressRegion: 'Var',
+                    addressCountry: 'FR',
+                  },
+                  areaServed: {
+                    '@type': 'Country',
+                    name: 'France',
+                  },
+                },
+                {
+                  '@type': 'WebSite',
+                  '@id': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://labrocantedenanie.com'}/#website`,
+                  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://labrocantedenanie.com',
+                  name: 'La Brocante de Nanie',
+                  publisher: {
+                    '@id': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://labrocantedenanie.com'}/#organization`,
+                  },
+                  inLanguage: 'fr-FR',
+                },
+              ],
+            }),
+          }}
+        />
         <Providers>
         {children}
         <Toaster

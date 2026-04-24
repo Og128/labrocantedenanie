@@ -17,7 +17,7 @@ export default function ConfidentialitePage() {
         <div className="prose prose-stone max-w-none font-inter prose-headings:font-playfair prose-h2:text-brown-dark prose-h3:text-stone-700 prose-a:text-terracotta-500">
 
           <h2>1. Responsable du traitement</h2>
-          <p>La Brocante de Nanie, entreprise individuelle, 14 Rue des Huguenots, 83670 Tavernes. Contact : <a href="mailto:nanou2503@aol.com">nanou2503@aol.com</a></p>
+          <p>La Brocante de Nanie, entreprise individuelle, 14 Rue des Huguenots, 83670 Tavernes. Contact : <a href="mailto:contact@labrocantedenanie.com">contact@labrocantedenanie.com</a></p>
 
           <h2>2. Données collectées</h2>
           <p>Nous collectons uniquement les données nécessaires à la relation commerciale :</p>

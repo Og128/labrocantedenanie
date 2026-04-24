@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma'
+import Link from 'next/link'
 import ProductCard from '@/components/shop/ProductCard'
 import ShopFilters from '@/components/shop/ShopFilters'
 import type { Category } from '@prisma/client'
@@ -83,9 +84,12 @@ export default async function BoutiquePage({
     <div className="min-h-screen bg-cream">
       <div className="bg-beige py-10 border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="section-title">La Boutique</h1>
+          <h1 className="section-title">Boutique brocante en ligne</h1>
           <p className="section-subtitle mt-2">
             {total} article{total > 1 ? 's' : ''} disponible{total > 1 ? 's' : ''}
+          </p>
+          <p className="text-stone-500 font-inter text-sm mt-3 max-w-2xl mx-auto leading-relaxed">
+            Parcourez notre sélection d'antiquités et objets anciens chinés dans le Sud de la France — meubles provençaux, vaisselle d'époque, décoration vintage et curiosités authentiques. Chaque pièce est unique et soigneusement sélectionnée.
           </p>
         </div>
       </div>
@@ -113,7 +117,7 @@ export default async function BoutiquePage({
                 {pages > 1 && (
                   <div className="flex justify-center gap-2 mt-12">
                     {Array.from({ length: pages }, (_, i) => i + 1).map((p) => (
-                      <a
+                      <Link
                         key={p}
                         href={`?${new URLSearchParams({ ...params, page: String(p) })}`}
                         className={`w-10 h-10 flex items-center justify-center rounded-sm text-sm font-inter transition-colors ${
@@ -123,7 +127,7 @@ export default async function BoutiquePage({
                         }`}
                       >
                         {p}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 )}

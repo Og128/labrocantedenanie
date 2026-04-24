@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
@@ -54,9 +54,49 @@ export default async function ProductPage({ params }: Props) {
   })
 
   const isSold = product.status === 'SOLD'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://labrocantedenanie.com'
+
+  const productJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.title,
+    description: product.description.replace(/<[^>]*>/g, '').slice(0, 300),
+    image: product.images,
+    sku: product.id,
+    category: CATEGORY_LABELS[product.category],
+    url: `${siteUrl}/produit/${product.slug}`,
+    offers: {
+      '@type': 'Offer',
+      price: product.price,
+      priceCurrency: 'EUR',
+      availability: isSold
+        ? 'https://schema.org/SoldOut'
+        : 'https://schema.org/InStock',
+      seller: {
+        '@type': 'Organization',
+        name: 'La Brocante de Nanie',
+      },
+    },
+    ...(product.weight && { weight: { '@type': 'QuantitativeValue', value: product.weight, unitCode: 'KGM' } }),
+    ...(product.dimensions && { description: product.description.replace(/<[^>]*>/g, '').slice(0, 300) }),
+    itemCondition: 'https://schema.org/UsedCondition',
+  }
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Accueil', item: siteUrl },
+      { '@type': 'ListItem', position: 2, name: 'Boutique', item: `${siteUrl}/boutique` },
+      { '@type': 'ListItem', position: 3, name: CATEGORY_LABELS[product.category], item: `${siteUrl}/boutique?category=${product.category}` },
+      { '@type': 'ListItem', position: 4, name: product.title },
+    ],
+  }
 
   return (
     <div className="bg-offwhite">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Breadcrumb */}

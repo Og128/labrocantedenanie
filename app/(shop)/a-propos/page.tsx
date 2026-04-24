@@ -39,7 +39,7 @@ export default function AProposPage() {
               <div className="relative h-96 rounded-sm overflow-hidden">
                 <Image
                   src="https://res.cloudinary.com/dttbty8el/image/upload/w_800,q_auto,f_auto/v1776946433/475238524_1719931722197633_4349565079218907704_n_x9lpte.jpg"
-                  alt="Nanie et ses trésors"
+                  alt="Nanie, chineuse passionnée du Var et du Verdon"
                   fill
                   className="object-cover"
                 />
@@ -107,7 +107,7 @@ export default function AProposPage() {
               <div key={i} className="relative aspect-square rounded-sm overflow-hidden bg-beige">
                 <Image
                   src={img}
-                  alt={`La boutique de Lauris - photo ${i + 1}`}
+                  alt={`Boutique brocante de Lauris dans le Vaucluse — intérieur ${i + 1}`}
                   fill
                   className="object-cover hover:scale-105 transition-transform duration-300"
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"

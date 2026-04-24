@@ -66,7 +66,7 @@ export default function ContactPage() {
               {[
                 { icon: MapPin, label: 'Adresse', value: '14 Rue des Huguenots\n83670 Tavernes (Var)' },
                 { icon: Phone, label: 'Téléphone', value: '06 16 74 69 15' },
-                { icon: Mail, label: 'Email', value: 'nanou2503@aol.com' },
+                { icon: Mail, label: 'Email', value: 'contact@labrocantedenanie.com' },
                 { icon: Clock, label: 'Présence', value: 'Vide-greniers & brocantes\ndans le Var, Haut-Var et Verdon' },
               ].map(({ icon: Icon, label, value }) => (
                 <div key={label} className="flex gap-4">

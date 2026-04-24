@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 
 import { Suspense } from 'react'
 import Link from 'next/link'
@@ -11,12 +11,12 @@ import { CATEGORY_LABELS } from '@/lib/utils'
 import { ArrowRight, Leaf, Star, Shield } from 'lucide-react'
 
 const categories = [
-  { key: 'MEUBLES', label: 'Meubles', icon: '🪑', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946432/474393882_1715679812622824_2611294318711233869_n_f6megt.jpg' },
-  { key: 'VAISSELLE', label: 'Vaisselle', icon: '🫖', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946435/126885897_770415883815893_2051473504175667570_n_s77pmd.jpg' },
-  { key: 'DECORATION', label: 'Décoration', icon: '🪞', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946430/469765770_1685818375608968_8681378642126420447_n_mdqpnt.jpg' },
-  { key: 'LUMINAIRES', label: 'Luminaires', icon: '🕯️', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946430/109941852_672769360247213_2841157625384242410_n_wzs7u8.jpg' },
-  { key: 'BIJOUX', label: 'Bijoux', icon: '💍', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946436/126945261_770414723816009_6103322513661659153_n_ylyfwi.jpg' },
-  { key: 'TABLEAUX', label: 'Tableaux', icon: '🖼️', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946437/205089756_899965087527638_4028771857320490208_n_hwcchl.jpg' },
+  { key: 'MEUBLES', label: 'Meubles', alt: 'Meubles anciens de brocante — buffets, commodes et armoires', icon: '🪑', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946432/474393882_1715679812622824_2611294318711233869_n_f6megt.jpg' },
+  { key: 'VAISSELLE', label: 'Vaisselle', alt: 'Vaisselle ancienne — porcelaine, faïence et arts de la table', icon: '🫖', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946435/126885897_770415883815893_2051473504175667570_n_s77pmd.jpg' },
+  { key: 'DECORATION', label: 'Décoration', alt: 'Décoration vintage et objets anciens de brocante', icon: '🪞', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946430/469765770_1685818375608968_8681378642126420447_n_mdqpnt.jpg' },
+  { key: 'LUMINAIRES', label: 'Luminaires', alt: 'Luminaires anciens — lampes, lustres et appliques vintage', icon: '🕯️', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946430/109941852_672769360247213_2841157625384242410_n_wzs7u8.jpg' },
+  { key: 'BIJOUX', label: 'Bijoux', alt: 'Bijoux anciens et vintage de brocante', icon: '💍', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946436/126945261_770414723816009_6103322513661659153_n_ylyfwi.jpg' },
+  { key: 'TABLEAUX', label: 'Tableaux', alt: 'Tableaux et peintures anciennes de brocante', icon: '🖼️', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946437/205089756_899965087527638_4028771857320490208_n_hwcchl.jpg' },
 ]
 
 // const testimonials = [
@@ -64,6 +64,11 @@ export default async function HomePage() {
 
   return (
     <div>
+      {/* SEO h1 — visible mais discret au-dessus du hero */}
+      <h1 className="sr-only">
+        Brocante en ligne — Antiquités et objets anciens du Sud de la France
+      </h1>
+
       {/* Hero */}
       <HeroSlider />
 
@@ -108,7 +113,7 @@ export default async function HomePage() {
                 <div className="w-full aspect-square rounded-full overflow-hidden border-2 border-beige group-hover:border-terracotta-400 transition-colors mb-3 relative">
                   <Image
                     src={cat.image}
-                    alt={cat.label}
+                    alt={cat.alt}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                     sizes="200px"
@@ -195,7 +200,7 @@ export default async function HomePage() {
             <div className="relative h-80 lg:h-auto rounded-sm overflow-hidden">
               <Image
                 src="https://res.cloudinary.com/dttbty8el/image/upload/w_800,q_auto,f_auto/v1776946429/467439035_1673383713519101_3798485183832807361_n_bqqlaz.jpg"
-                alt="Notre brocante"
+                alt="La Brocante de Nanie — objets anciens et curiosités du Sud de la France"
                 fill
                 className="object-cover"
               />

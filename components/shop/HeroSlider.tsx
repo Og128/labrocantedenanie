@@ -79,9 +79,9 @@ export default function HeroSlider() {
           <p className="text-terracotta-300 text-sm font-inter uppercase tracking-[0.3em] mb-4">
             La Brocante de Nanie
           </p>
-          <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-medium mb-4 leading-tight">
+          <h2 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-medium mb-4 leading-tight">
             {slides[current].title}
-          </h1>
+          </h2>
           <p className="text-white/80 font-inter text-base sm:text-lg md:text-xl mb-8 max-w-2xl mx-auto">
             {slides[current].subtitle}
           </p>
