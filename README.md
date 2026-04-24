@@ -1,6 +1,7 @@
-# La Brocante du Sud — Site E-commerce
+# La Brocante de Nanie — Site E-commerce
 
-Site e-commerce complet pour une brocante française, avec back-office CMS intégré.
+Site e-commerce complet pour une brocante provençale, avec back-office CMS intégré.
+Production : [labrocantedenanie.com](https://labrocantedenanie.com)
 
 ## Stack technique
 
@@ -156,16 +157,16 @@ la-brocante-du-sud/
 ## 🛒 Fonctionnalités
 
 ### Boutique publique
-- Page d'accueil avec hero slider, catégories, nouveautés, témoignages, newsletter
+- Page d'accueil avec hero slider, catégories, nouveautés, coups de cœur (images Cloudinary)
 - Boutique avec filtres (catégorie, prix, coups de cœur) et pagination
 - Fiches produit avec galerie photos, description, dimensions, produits similaires
 - Panier persistant (localStorage via Zustand)
+- Frais de livraison dynamiques (calculés depuis la BDD via `/api/shipping`)
 - Checkout avec formulaire d'adresse → redirection Stripe
 - Page confirmation de commande
 - Mon compte : historique des commandes avec statuts et numéro de suivi
-- Blog avec liste et articles individuels
+- Suivi de commande par référence
 - Pages légales : CGV, Livraison & Retours, Mentions légales, Confidentialité
-- Bandeau RGPD (react-cookie-consent)
 - Sitemap XML automatique + robots.txt
 
 ### Back-office admin (`/admin`)
@@ -173,8 +174,7 @@ la-brocante-du-sud/
 - Gestion articles : création, modification, suppression, toggle statut
 - Upload photos via Cloudinary (drag & drop, validation type/taille)
 - Gestion commandes : filtres par statut, mise à jour statut, numéro de suivi
-- Email automatique à l'expédition
-- Blog : création et modification d'articles
+- Email automatique à l'expédition (client) + notification admin à chaque vente
 - Gestion du contenu du site (textes éditables)
 - Configuration des frais de livraison
 
@@ -206,4 +206,4 @@ npm run lint         # Vérifier le code
 
 ## 📧 Support
 
-Pour toute question : contact@labrocantedusud.fr
+Pour toute question : contact@labrocantedenanie.com
