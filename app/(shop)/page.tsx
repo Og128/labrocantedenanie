@@ -194,7 +194,7 @@ export default async function HomePage() {
             </div>
             <div className="relative h-80 lg:h-auto rounded-sm overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800"
+                src="https://res.cloudinary.com/dttbty8el/image/upload/w_800,q_auto,f_auto/v1776946429/467439035_1673383713519101_3798485183832807361_n_bqqlaz.jpg"
                 alt="Notre brocante"
                 fill
                 className="object-cover"

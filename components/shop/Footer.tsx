@@ -95,7 +95,6 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-4">
             {/* <CookiePreferencesLink /> */}
-            <img src="/images/stripe-badge.svg" alt="Paiement sécurisé Stripe" className="h-6 opacity-50" />
           </div>
         </div>
       </div>

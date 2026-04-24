@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       'Des objets anciens, meubles et curiosités authentiques directement depuis le Sud de la France.',
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_SITE_URL}/images/og-default.jpg`,
+        url: 'https://res.cloudinary.com/dttbty8el/image/upload/w_1200,h_630,c_fill,q_auto,f_auto/v1777022877/lbdn_logo_1_cotdaz.jpg',
         width: 1200,
         height: 630,
         alt: 'La Brocante de Nanie',
