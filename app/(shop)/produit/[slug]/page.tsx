@@ -1,4 +1,4 @@
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
