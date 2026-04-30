@@ -15,6 +15,7 @@ const updateProductSchema = z.object({
   images: z.array(z.string()).optional(),
   featured: z.boolean().optional(),
   contactOnly: z.boolean().optional(),
+  freeShipping: z.boolean().optional(),
   weight: z.number().nullable().optional(),
   dimensions: z.string().nullable().optional(),
   tags: z.array(z.string()).optional(),
