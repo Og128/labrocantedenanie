@@ -22,6 +22,7 @@ export default function AddToCartButton({ product }: Props) {
       price: product.price,
       image: product.images[0] || '/images/placeholder.jpg',
       slug: product.slug,
+      weight: product.weight || 0,
     })
     toast.success(`${product.title} ajouté au panier !`)
   }

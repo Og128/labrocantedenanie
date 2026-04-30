@@ -13,7 +13,7 @@ export default function Footer() {
             <h3 className="font-playfair text-xl text-white mb-3">La Brocante de Nanie</h3>
             <p className="text-cream/70 text-sm font-inter leading-relaxed mb-5">
               Des trésors du passé pour embellir votre aujourd'hui.
-              Sélection artisanale d'objets anciens depuis le Sud de la France.
+              Sélection d'objets anciens depuis le Sud de la France.
             </p>
             <div className="flex gap-3">
               <a href="#" className="p-2 bg-white/10 hover:bg-terracotta-500 rounded-full transition-colors" aria-label="Instagram">

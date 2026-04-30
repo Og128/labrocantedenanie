@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'À propos',
-  description: 'L\'histoire de Nanie, passionnée de brocante depuis plus de 20 ans dans le Var et le Vaucluse.',
+  description: 'L\'histoire de Nanie, passionnée de brocante depuis plus de 20 ans dans le Var et le Luberon.',
 }
 
 const laurisImages = [

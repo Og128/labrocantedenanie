@@ -259,8 +259,8 @@ export default function ProductForm({ product }: Props) {
                 <select {...register('condition')} className="input-field">
                   <option value="">Choisir l'état</option>
                   <option value="EXCELLENT">Excellent état</option>
+                  <option value="TRES_BON">Très bon état</option>
                   <option value="BON_ETAT">Bon état</option>
-                  <option value="BON_ETAT_GENERAL">Bon état général</option>
                 </select>
                 {errors.condition && <p className="text-red-500 text-xs mt-1">{errors.condition.message}</p>}
               </div>

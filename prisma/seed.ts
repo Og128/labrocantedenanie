@@ -34,11 +34,10 @@ async function main() {
   // Règles de livraison
   await prisma.shippingRule.createMany({
     data: [
-      { name: 'Petits objets (< 30€)', minPrice: 0, maxPrice: 30, cost: 5.9, active: true },
-      { name: 'Objets moyens (30-80€)', minPrice: 30, maxPrice: 80, cost: 8.9, active: true },
-      { name: 'Objets importants (80-150€)', minPrice: 80, maxPrice: 150, cost: 12.9, active: true },
-      { name: 'Grands objets (150-300€)', minPrice: 150, maxPrice: 300, cost: 18.9, active: true },
-      { name: 'Meubles et objets lourds (> 300€)', minPrice: 300, maxPrice: 9999, cost: 29.9, active: true },
+      { name: 'Jusqu\'à 500g', minWeight: 0, maxWeight: 0.5, cost: 6, active: true },
+      { name: 'Jusqu\'à 2 kg', minWeight: 0.5, maxWeight: 2, cost: 10, active: true },
+      { name: 'Jusqu\'à 5 kg', minWeight: 2, maxWeight: 5, cost: 18, active: true },
+      { name: 'Jusqu\'à 10 kg', minWeight: 5, maxWeight: 10, cost: 25, active: true },
     ],
   })
   console.log('✅ Règles de livraison créées')
@@ -198,7 +197,7 @@ Bienvenue dans notre univers chaleureux, où le passé rencontre le présent.`,
 <p>Légèrement pâlie par le temps, ce qui lui confère un caractère authentique. Quelques petites reprises discrètes témoignent de son histoire. Lavée et désinfectée avant mise en vente.</p>`,
       price: 145,
       category: Category.TEXTILES,
-      condition: Condition.BON_ETAT_GENERAL,
+      condition: Condition.BON_ETAT,
       status: Status.AVAILABLE,
       images: [
         'https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?w=800',

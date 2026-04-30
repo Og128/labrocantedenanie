@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default async function LivraisonPage() {
   const rules = await prisma.shippingRule.findMany({
     where: { active: true },
-    orderBy: { minPrice: 'asc' },
+    orderBy: { minWeight: 'asc' },
   })
 
   return (
@@ -37,7 +37,7 @@ export default async function LivraisonPage() {
             <table className="w-full text-sm font-inter">
               <thead>
                 <tr className="bg-beige">
-                  <th className="text-left px-5 py-3 text-brown font-semibold">Tranche de prix</th>
+                  <th className="text-left px-5 py-3 text-brown font-semibold">Poids du colis</th>
                   <th className="text-right px-5 py-3 text-brown font-semibold">Frais de livraison</th>
                 </tr>
               </thead>
@@ -57,7 +57,7 @@ export default async function LivraisonPage() {
           </div>
 
           <p className="text-stone-500 font-inter text-sm mt-4">
-            Les frais de livraison sont calculés sur le montant total de la commande hors frais de port.
+            Les frais de livraison sont calculés en fonction du poids total de votre commande.
           </p>
         </section>
 

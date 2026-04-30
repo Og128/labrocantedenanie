@@ -24,12 +24,16 @@ enum Category {
   LIVRES
   MERCERIE
   NOUVEAUTES
+  VINTAGE
+  COLLECTION
+  JEUX_JOUETS
+  AUTRES
 }
 
 enum Condition {
   EXCELLENT
+  TRES_BON
   BON_ETAT
-  BON_ETAT_GENERAL
 }
 
 enum Status {
@@ -203,12 +207,12 @@ model Review {
 // ============================================================
 
 model ShippingRule {
-  id       String @id @default(cuid())
-  name     String
-  minPrice Float
-  maxPrice Float
-  cost     Float
-  active   Boolean @default(true)
+  id        String  @id @default(cuid())
+  name      String
+  minWeight Float
+  maxWeight Float
+  cost      Float
+  active    Boolean @default(true)
 }
 
 // ============================================================

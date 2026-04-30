@@ -40,12 +40,16 @@ export const CATEGORY_LABELS: Record<string, string> = {
   LIVRES: 'Livres',
   MERCERIE: 'Mercerie',
   NOUVEAUTES: 'Nouveautés',
+  VINTAGE: 'Vintage',
+  COLLECTION: 'Collection',
+  JEUX_JOUETS: 'Jeux & Jouets',
+  AUTRES: 'Autres',
 }
 
 export const CONDITION_LABELS: Record<string, string> = {
   EXCELLENT: 'Excellent état',
+  TRES_BON: 'Très bon état',
   BON_ETAT: 'Bon état',
-  BON_ETAT_GENERAL: 'Bon état général',
 }
 
 export const ORDER_STATUS_LABELS: Record<string, string> = {

@@ -8,14 +8,14 @@ import { Trash2, ShoppingBag, ArrowRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export default function PanierPage() {
-  const { items, removeItem, total } = useCart()
+  const { items, removeItem, total, totalWeight } = useCart()
   const [shipping, setShipping] = useState<number | null>(null)
 
   useEffect(() => {
-    fetch(`/api/shipping?total=${total()}`)
+    fetch(`/api/shipping?weight=${totalWeight()}&total=${total()}`)
       .then((r) => r.json())
       .then((d) => setShipping(d.cost))
-      .catch(() => setShipping(9.9))
+      .catch(() => setShipping(25))
   }, [items])
 
   if (items.length === 0) {

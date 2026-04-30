@@ -5,8 +5,9 @@ import { prisma } from '@/lib/prisma'
 import { calculateShipping } from '@/lib/shipping'
 
 export async function GET(req: NextRequest) {
+  const weight = parseFloat(req.nextUrl.searchParams.get('weight') || '0')
   const total = parseFloat(req.nextUrl.searchParams.get('total') || '0')
-  const cost = await calculateShipping(total)
+  const cost = await calculateShipping(weight, total)
   return NextResponse.json({ cost })
 }
 

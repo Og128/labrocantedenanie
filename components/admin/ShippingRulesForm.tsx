@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Save, Loader2 } from 'lucide-react'
-import { formatPrice } from '@/lib/utils'
 import toast from 'react-hot-toast'
 import type { ShippingRule } from '@prisma/client'
 
@@ -41,7 +40,7 @@ export default function ShippingRulesForm({ rules }: Props) {
   return (
     <div className="space-y-3">
       <div className="text-xs text-stone-400 font-inter mb-4">
-        Modifiez les frais de livraison par tranche de prix de commande (€).
+        Modifiez les frais de livraison par tranche de poids (kg).
       </div>
 
       {rules.map((rule) => (
@@ -49,7 +48,7 @@ export default function ShippingRulesForm({ rules }: Props) {
           <div className="flex-1">
             <p className="text-sm font-medium text-stone-700 font-inter">{rule.name}</p>
             <p className="text-xs text-stone-400 font-inter">
-              {formatPrice(rule.minPrice)} – {rule.maxPrice >= 9999 ? '∞' : formatPrice(rule.maxPrice)}
+              {rule.minWeight} kg – {rule.maxWeight >= 9999 ? '∞' : `${rule.maxWeight} kg`}
             </p>
           </div>
           <div className="flex items-center gap-2">

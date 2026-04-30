@@ -27,16 +27,16 @@ const checkoutSchema = z.object({
 type CheckoutForm = z.infer<typeof checkoutSchema>
 
 export default function CheckoutPage() {
-  const { items, total, removeItem } = useCart()
+  const { items, total, totalWeight, removeItem } = useCart()
   const router = useRouter()
   const [stripeLoading, setStripeLoading] = useState(false)
   const [shipping, setShipping] = useState<number | null>(null)
 
   useEffect(() => {
-    fetch(`/api/shipping?total=${total()}`)
+    fetch(`/api/shipping?weight=${totalWeight()}&total=${total()}`)
       .then((r) => r.json())
       .then((d) => setShipping(d.cost))
-      .catch(() => setShipping(9.9))
+      .catch(() => setShipping(25))
   }, [items])
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm<CheckoutForm>({
@@ -185,10 +185,10 @@ export default function CheckoutPage() {
                     <span className="text-amber-600 text-xl shrink-0">⚠</span>
                     <div>
                       <p className="text-sm font-inter font-medium text-amber-800 mb-1">
-                        Livraison uniquement en France metropolitaine
+                        Livraison disponible uniquement en France metropolitaine
                       </p>
                       <p className="text-xs font-inter text-amber-700">
-                        Nous ne livrons pas hors France metropolitaine. Contactez-nous pour connaitre les options disponibles pour votre adresse.
+                        Les commandes passées directement sur le site ne peuvent être livrées qu’en France métropolitaine. Merci de nous contacter pour connaitre le prix de la livraison pour votre adresse.
                       </p>
                     </div>
                   </div>

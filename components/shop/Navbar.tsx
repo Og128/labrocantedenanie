@@ -3,15 +3,12 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ShoppingBag, Menu, X, Search } from 'lucide-react'
+import { ShoppingBag, Menu, X, Package } from 'lucide-react'
 import { useCart } from '@/lib/cart'
 import { cn } from '@/lib/utils'
 
 const navLinks = [
   { href: '/boutique', label: 'Boutique' },
-  { href: '/boutique?category=MEUBLES', label: 'Meubles' },
-  { href: '/boutique?category=DECORATION', label: 'Décoration' },
-  { href: '/boutique?category=VAISSELLE', label: 'Vaisselle' },
   { href: '/a-propos', label: 'À propos' },
   { href: '/contact', label: 'Contact' },
 ]
@@ -71,11 +68,11 @@ export default function Navbar() {
           {/* Actions */}
           <div className="flex items-center gap-2">
             <Link
-              href="/boutique"
+              href="/suivi"
               className="p-2 text-stone-500 hover:text-terracotta-500 transition-colors"
-              aria-label="Rechercher"
+              aria-label="Suivi de commande"
             >
-              <Search size={20} />
+              <Package size={20} />
             </Link>
 
             <Link

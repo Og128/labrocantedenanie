@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default async function ContenuPage() {
   const [contents, shippingRules] = await Promise.all([
     prisma.siteContent.findMany({ orderBy: { key: 'asc' } }),
-    prisma.shippingRule.findMany({ orderBy: { minPrice: 'asc' } }),
+    prisma.shippingRule.findMany({ orderBy: { minWeight: 'asc' } }),
   ])
 
   return (
