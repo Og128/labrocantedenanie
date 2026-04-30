@@ -11,21 +11,21 @@ import { CATEGORY_LABELS } from '@/lib/utils'
 import { ArrowRight, Leaf, Star, Shield } from 'lucide-react'
 
 const categories = [
-  { key: 'MEUBLES', label: 'Meubles', alt: 'Meubles anciens de brocante — buffets, commodes et armoires', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946432/474393882_1715679812622824_2611294318711233869_n_f6megt.jpg' },
-  { key: 'VAISSELLE', label: 'Vaisselle', alt: 'Vaisselle ancienne — porcelaine, faïence et arts de la table', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946435/126885897_770415883815893_2051473504175667570_n_s77pmd.jpg' },
-  { key: 'DECORATION', label: 'Décoration', alt: 'Décoration vintage et objets anciens de brocante', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946430/469765770_1685818375608968_8681378642126420447_n_mdqpnt.jpg' },
-  { key: 'LUMINAIRES', label: 'Luminaires', alt: 'Luminaires anciens — lampes, lustres et appliques vintage', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946430/109941852_672769360247213_2841157625384242410_n_wzs7u8.jpg' },
-  { key: 'BIJOUX', label: 'Bijoux', alt: 'Bijoux anciens et vintage de brocante', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946436/126945261_770414723816009_6103322513661659153_n_ylyfwi.jpg' },
-  { key: 'TABLEAUX', label: 'Tableaux', alt: 'Tableaux et peintures anciennes de brocante', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946437/205089756_899965087527638_4028771857320490208_n_hwcchl.jpg' },
+  { key: 'MEUBLES', label: 'Meubles', alt: 'Meubles anciens de brocante — buffets, commodes et armoires', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1777517076/IMG_20260429_115027_ucts6b.jpg' },
+  { key: 'VAISSELLE', label: 'Vaisselle', alt: 'Vaisselle ancienne — porcelaine, faïence et arts de la table', image: 'https://res.cloudinary.com/dttbty8el/image/w_600,q_auto,f_auto/upload/v1777517076/IMG_20260429_111652_nxafk3.jpg' },
+  { key: 'DECORATION', label: 'Décoration', alt: 'Décoration vintage et objets anciens de brocante', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1777517076/IMG_20260429_115027_ucts6b.jpg' },
+  { key: 'LUMINAIRES', label: 'Luminaires', alt: 'Luminaires anciens — lampes, lustres et appliques vintage', image: 'https://res.cloudinary.com/dttbty8el/image/w_600,q_auto,f_auto/upload/v1777517076/IMG_20260429_115027_ucts6b.jpg' },
+  { key: 'BIJOUX', label: 'Bijoux', alt: 'Bijoux anciens et vintage de brocante', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1777517076/IMG_20240419_163520_kiypdd.jpg' },
+  { key: 'TABLEAUX', label: 'Tableaux', alt: 'Tableaux et peintures anciennes de brocante', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1777517076/IMG_20240705_103356_h0ffty.jpg' },
   { key: 'TEXTILES', label: 'Textiles', alt: 'Textiles anciens — nappes, dentelles et tissus vintage', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946432/474393882_1715679812622824_2611294318711233869_n_f6megt.jpg' },
   { key: 'OBJETS_METIER', label: 'Objets de métier', alt: 'Objets de métier anciens et outils vintage', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946430/469765770_1685818375608968_8681378642126420447_n_mdqpnt.jpg' },
   { key: 'LIVRES', label: 'Livres', alt: 'Livres anciens et éditions vintage', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946437/205089756_899965087527638_4028771857320490208_n_hwcchl.jpg' },
-  { key: 'MERCERIE', label: 'Mercerie', alt: 'Mercerie ancienne — boutons, fils et accessoires de couture', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946436/126945261_770414723816009_6103322513661659153_n_ylyfwi.jpg' },
+  { key: 'MERCERIE', label: 'Mercerie', alt: 'Mercerie ancienne — boutons, fils et accessoires de couture', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1777517079/IMG_20260429_113501_ockhqx.jpg' },
   { key: 'NOUVEAUTES', label: 'Nouveautés', alt: 'Dernières trouvailles et nouveautés de brocante', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946430/109941852_672769360247213_2841157625384242410_n_wzs7u8.jpg' },
-  { key: 'VINTAGE', label: 'Vintage', alt: 'Objets vintage et rétro de collection', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946435/126885897_770415883815893_2051473504175667570_n_s77pmd.jpg' },
-  { key: 'COLLECTION', label: 'Collection', alt: 'Pièces de collection et objets rares', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946432/474393882_1715679812622824_2611294318711233869_n_f6megt.jpg' },
-  { key: 'JEUX_JOUETS', label: 'Jeux & Jouets', alt: 'Jeux et jouets anciens de collection', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946430/469765770_1685818375608968_8681378642126420447_n_mdqpnt.jpg' },
-  { key: 'AUTRES', label: 'Autres', alt: 'Autres objets de brocante et curiosités', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1776946437/205089756_899965087527638_4028771857320490208_n_hwcchl.jpg' },
+  { key: 'VINTAGE', label: 'Vintage', alt: 'Objets vintage et rétro de collection', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1777517076/IMG_20240315_100018_kgd9l1.jpg' },
+  { key: 'COLLECTION', label: 'Collection', alt: 'Pièces de collection et objets rares', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1777520532/IMG_20240304_154422_mojw9o.jpg' },
+  { key: 'JEUX_JOUETS', label: 'Jeux & Jouets', alt: 'Jeux et jouets anciens de collection', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1777520530/IMG_20260429_112746_1_gbo5pr.jpg' },
+  { key: 'AUTRES', label: 'Autres', alt: 'Autres objets de brocante et curiosités', image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_600,q_auto,f_auto/v1777517079/IMG_20240517_115044_k0pydr.jpg' },
 ]
 
 // const testimonials = [

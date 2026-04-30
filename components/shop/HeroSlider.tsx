@@ -24,7 +24,7 @@ const slides = [
   },
   {
     id: 3,
-    image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_1600,q_auto,f_auto/v1776946429/41500313_253633905494096_5900202677110833152_n_c691vi.jpg',
+    image: 'https://res.cloudinary.com/dttbty8el/image/upload/w_1600,q_auto,f_auto/v1777517076/IMG_20240315_100018_kgd9l1.jpg',
     title: 'Tableaux & Œuvres d\'art',
     subtitle: 'Peintures, lithographies et cadres anciens pour décorer vos murs',
     cta: { label: 'Voir les œuvres', href: '/boutique?category=TABLEAUX' },
