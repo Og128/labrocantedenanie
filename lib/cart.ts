@@ -8,6 +8,7 @@ export interface CartItem {
   image: string
   slug: string
   weight?: number
+  freeShipping?: boolean
 }
 
 interface CartStore {
@@ -35,7 +36,8 @@ export const useCart = create<CartStore>()(
       clearCart: () => set({ items: [] }),
       isInCart: (id) => get().items.some((i) => i.id === id),
       total: () => get().items.reduce((acc, item) => acc + item.price, 0),
-      totalWeight: () => get().items.reduce((acc, item) => acc + (item.weight || 0), 0),
+      totalWeight: () =>
+        get().items.reduce((acc, item) => acc + (item.freeShipping ? 0 : (item.weight || 0)), 0),
     }),
     {
       name: 'brocante-cart',

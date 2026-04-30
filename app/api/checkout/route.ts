@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
     }
 
     const subtotal = products.reduce((acc, p) => acc + p.price, 0)
-    const totalWeight = products.reduce((acc, p) => acc + (p.weight || 0), 0)
+    const totalWeight = products.reduce((acc, p) => acc + ((p as any).freeShipping ? 0 : (p.weight || 0)), 0)
     const shippingCost = await calculateShipping(totalWeight, subtotal)
 
     const lineItems: any[] = products.map((product) => ({

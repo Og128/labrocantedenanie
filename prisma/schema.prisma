@@ -127,8 +127,9 @@ model Product {
   status      Status    @default(AVAILABLE)
   images      String[]
   featured    Boolean   @default(false)
-  contactOnly Boolean   @default(false)
-  weight      Float?
+  contactOnly  Boolean   @default(false)
+  freeShipping Boolean   @default(false)
+  weight       Float?
   dimensions  String?
   tags        String[]
   sortOrder   Int       @default(0)
