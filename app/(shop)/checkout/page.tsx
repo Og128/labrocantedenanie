@@ -152,12 +152,12 @@ export default function CheckoutPage() {
               <div className="grid grid-cols-2 gap-4 mt-4">
                 <div>
                   <label className="label-field">Code postal</label>
-                  <input {...register('postalCode')} className="input-field" placeholder="13100" />
+                  <input {...register('postalCode')} className="input-field" placeholder="75001" />
                   {errors.postalCode && <p className="text-red-500 text-xs mt-1 font-inter">{errors.postalCode.message}</p>}
                 </div>
                 <div>
                   <label className="label-field">Ville</label>
-                  <input {...register('city')} className="input-field" placeholder="Aix-en-Provence" />
+                  <input {...register('city')} className="input-field" placeholder="Paris" />
                   {errors.city && <p className="text-red-500 text-xs mt-1 font-inter">{errors.city.message}</p>}
                 </div>
               </div>

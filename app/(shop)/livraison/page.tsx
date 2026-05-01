@@ -81,7 +81,7 @@ export default async function LivraisonPage() {
             <h2 className="font-playfair text-2xl text-brown-dark">Livraison internationale</h2>
           </div>
           <div className="prose prose-stone font-inter text-stone-600">
-            <p>Nous livrons en Belgique, Suisse et Luxembourg aux mêmes tarifs qu'en France. Pour les autres pays européens ou hors Europe, <a href="/contact" className="text-terracotta-500 hover:underline">contactez-nous</a> pour obtenir un devis personnalisé.</p>
+            <p>Pour toutes les livraisons dans les pays européens ou hors Europe, <a href="/contact" className="text-terracotta-500 hover:underline">contactez-nous</a> pour obtenir un devis personnalisé.</p>
             <p>Les frais de douane éventuels sont à la charge du destinataire.</p>
           </div>
         </section>
