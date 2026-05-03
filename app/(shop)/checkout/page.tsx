@@ -27,12 +27,16 @@ const checkoutSchema = z.object({
 type CheckoutForm = z.infer<typeof checkoutSchema>
 
 export default function CheckoutPage() {
-  const { items, total, totalWeight, removeItem } = useCart()
+  const { items, total, totalWeight, hasBillableItems, removeItem } = useCart()
   const router = useRouter()
   const [stripeLoading, setStripeLoading] = useState(false)
   const [shipping, setShipping] = useState<number | null>(null)
 
   useEffect(() => {
+    if (!hasBillableItems()) {
+      setShipping(0)
+      return
+    }
     fetch(`/api/shipping?weight=${totalWeight()}&total=${total()}`)
       .then((r) => r.json())
       .then((d) => setShipping(d.cost))

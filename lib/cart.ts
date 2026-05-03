@@ -19,6 +19,7 @@ interface CartStore {
   isInCart: (id: string) => boolean
   total: () => number
   totalWeight: () => number
+  hasBillableItems: () => boolean
 }
 
 export const useCart = create<CartStore>()(
@@ -38,6 +39,7 @@ export const useCart = create<CartStore>()(
       total: () => get().items.reduce((acc, item) => acc + item.price, 0),
       totalWeight: () =>
         get().items.reduce((acc, item) => acc + (item.freeShipping ? 0 : (item.weight || 0)), 0),
+      hasBillableItems: () => get().items.some((item) => !item.freeShipping),
     }),
     {
       name: 'brocante-cart',
