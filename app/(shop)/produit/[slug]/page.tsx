@@ -1,11 +1,11 @@
 export const dynamic = 'force-dynamic'
 
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import { formatPrice, CATEGORY_LABELS, CONDITION_LABELS } from '@/lib/utils'
 import AddToCartButton from '@/components/shop/AddToCartButton'
+import ProductGallery from '@/components/shop/ProductGallery'
 import ProductCard from '@/components/shop/ProductCard'
 import type { Metadata } from 'next'
 import { Tag, Ruler, Weight, CheckCircle, ChevronRight } from 'lucide-react'
@@ -115,41 +115,11 @@ export default async function ProductPage({ params }: Props) {
         {/* Product */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
           {/* Gallery */}
-          <div className="space-y-3">
-            <div className={`relative aspect-[4/5] rounded-sm overflow-hidden bg-beige ${isSold ? 'opacity-80' : ''}`}>
-              <Image
-                src={product.images[0] || '/images/placeholder.jpg'}
-                alt={product.title}
-                fill
-                priority
-                className={`object-cover ${isSold ? 'grayscale' : ''}`}
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-              {isSold && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="bg-stone-800/90 text-white font-inter font-medium text-lg px-8 py-3 uppercase tracking-widest">
-                    Vendu
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {product.images.length > 1 && (
-              <div className="grid grid-cols-4 gap-2">
-                {product.images.slice(1).map((img, i) => (
-                  <div key={i} className="relative aspect-square rounded-sm overflow-hidden bg-beige border border-beige hover:border-terracotta-400 transition-colors cursor-pointer">
-                    <Image
-                      src={img}
-                      alt={`${product.title} - photo ${i + 2}`}
-                      fill
-                      className="object-cover"
-                      sizes="150px"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          <ProductGallery
+            images={product.images}
+            title={product.title}
+            isSold={isSold}
+          />
 
           {/* Info */}
           <div className="flex flex-col">
