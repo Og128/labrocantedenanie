@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { MapPin, Phone, Mail, Clock } from 'lucide-react'
+import { MapPin, Mail, Clock } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -65,7 +65,6 @@ export default function ContactPage() {
             <div className="space-y-5">
               {[
                 { icon: MapPin, label: 'Adresse', value: '14 Rue des Huguenots\n83670 Tavernes (Var)' },
-                { icon: Phone, label: 'Téléphone', value: '06 16 74 69 15' },
                 { icon: Mail, label: 'Email', value: 'contact@labrocantedenanie.com' },
                 { icon: Clock, label: 'Présence', value: 'Vide-greniers & brocantes\ndans le Var, Haut-Var et Verdon' },
               ].map(({ icon: Icon, label, value }) => (
