@@ -20,7 +20,6 @@ export default function MentionsLegalesPage() {
             <strong>La Brocante de Nanie</strong><br />
             Entreprise individuelle<br />
             14 Rue des Huguenots, 83670 Tavernes<br />
-            Téléphone : 06 16 74 69 15<br />
             Email : contact@labrocantedenanie.com<br />
             SIRET : XXX XXX XXX XXXXX<br />
             N° TVA intracommunautaire : FRXX XXX XXX XXX
